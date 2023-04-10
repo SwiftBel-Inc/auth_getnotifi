@@ -2,8 +2,9 @@ import './App.css';
 import React, {Suspense, lazy} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
-import Builder from './Pages/Builder'
-import SignUpPage from './Pages/SignUpPage';
+const Builder =lazy(()=>import('./Pages/Builder'))
+const SignUpPage =lazy(()=>import('./Pages/SignUpPage'));
+const Tracking =lazy(()=>import('./Pages/Tracking'));
 const Dashboard =lazy(()=>import('./Pages/Dashboard'));
 const Header =lazy(()=>import("./Header"));
 const Footer =lazy(()=>import("./Footer"));
@@ -28,6 +29,8 @@ function App() {
         </Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/' element={<SignUpPage/>}></Route>
+        <Route path='/tracking' element={<Tracking/>}></Route>
+
       </Routes>
       {window.location.pathname==='/login'||window.location.pathname==='/'?
       ''
