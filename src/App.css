@@ -80,3 +80,14 @@ color: red;
       }
     }
 
+    .stripe-form {
+      width: 100%;
+    }
+
+    .input-element-container {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding-top: 18px;
+      padding-left: 18px;
+      padding-bottom:16px;
+    }

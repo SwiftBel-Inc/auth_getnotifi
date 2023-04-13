@@ -7,7 +7,7 @@ let location = useLocation()
   return (
     isAuthenticated()?
     <Outlet/>:
-    <Navigate to='https://www.getnotifi.com/pricing' state={{from:location,loginmodal:true }} replace/>
+    <Navigate to='/' state={{from:location,loginmodal:true }} replace/>
   );
 };
 

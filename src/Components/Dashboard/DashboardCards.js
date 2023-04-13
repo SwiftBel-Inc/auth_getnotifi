@@ -2,23 +2,33 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { getpaymentIntent } from "../../store/Actions/Auth.action";
+import { useNavigate } from "react-router-dom";
 function DashboardCards(){
         //const [open, setOpen] = React.useState(false);
+        // let active = localStorage.getItem('type')
+        const[active,setActive]=useState('Monthly')
+        const handleToggle=(type)=>{
+            setActive(type)
+            }
         const [errormsg,setErrormsg]=useState('')
         let dispatch=useDispatch();
+        let navigate=useNavigate()
         const handleClickOpen = async(price) => {
-            console.log(price,'pricee')
-            const res = await dispatch(getpaymentIntent({
-                "amount":price*100
-            }))
-            console.log(res,'resssss')
-            if(res?.status===false){
-                setErrormsg(res?.meesage)
-                }
-                if(res?.status===true){
-                window.open(`${res?.data}`)
-                }
-        return res
+        //     console.log(price,'pricee')
+        //     const res = await dispatch(getpaymentIntent({
+        //         "amount":price*100
+        //     }))
+        //     console.log(res,'resssss')
+        //     if(res?.status===false){
+        //         setErrormsg(res?.meesage)
+        //         }
+        //         if(res?.status===true){
+        //         window.open(`${res?.data}`)
+        //         }
+        // return res
+navigate(`/payment`)
+localStorage.setItem('price',price)
+localStorage.setItem('type',active)
         };
         const Carddetails=[
             {
@@ -93,14 +103,47 @@ function DashboardCards(){
             'Personalized automated FAQs',
             'Multimedia marketing messages',
             ]
-            }
+            },
+            {
+                'head':'Professional',
+                'desc':'All the advanced business solutions a mature business lead',
+                'price':'649',
+                'annualprice':'599',
+                'type':'/month',
+                'buttontext':'Buy now',
+                'details':[{
+                'text':'Unlimited',
+                'subtext':'contacts'
+                },
+                {
+                'text':'Unlimited',
+                'subtext':'team members'
+                }
+                ],
+                'pointhead':'All of the benifits of Standard,and:',
+                'points':[
+                'Automations that streamline tasks',
+                'Round-robin lead routing',
+                'Personalized automated FAQs',
+                'Multimedia marketing messages',
+                ]
+                }
             ]
-let active = localStorage.getItem('type')
 return(
     <>
 <Main>
     <Head>
         <span className="errormsg">{errormsg}</span>
+        <Togglediv>
+    <Toggle>
+     <button className={active==='Monthly'?"active":"nonactive"} onClick={()=>handleToggle('Monthly')}>
+     Monthly
+     </button>
+     <button className={active==='Annual'?"active":"nonactive"} onClick={()=>handleToggle('Annual')}>
+      Annual
+     </button>
+    </Toggle>
+    </Togglediv>
         <Cards>
         {Carddetails?.map((x,index)=>{
         return(
@@ -150,9 +193,6 @@ justify-content:center;
 background: linear-gradient(to top left, transparent 50%, #eeecea 50%);
 padding-bottom:70px;
 margin-bottom:50px;
-@media (min-width: 260px) and (max-width: 1311px){
-    padding-top:80px;
-    }
 `
 const Head=styled.div`
 width:1312px;
@@ -162,43 +202,37 @@ padding-left:30px;
 padding-right:30px;
 }
 `
-const Agree=styled.p`
-color:gray;
-font-size:12px;
-text-align:start;
-margin-top:-40px;
-margin-bottom:40px;
-`
-
 const Card=styled.div`
 background-color:white;
+width: 250px;
+@media (min-width: 1100px) and (max-width: 1322px){
+width: 220px;
+}
+@media (min-width: 260px) and (max-width: 1100px){
+width: 75%;
+padding:40px;
+border-radius:20px;
+margin-bottom:10px;
 border: 2px solid #eeecea;
-max-width: 350px;
-width: 100%;
-border-radius: 30px;
-padding:30px;
-margin-bottom:30px;
-@media (min-width: 260px) and (max-width: 820px){
-max-width: 300px;
-width: 90%;
-padding:20px;
-margin-bottom:30px;
 }
-@media (min-width: 1050px) and (max-width: 1310px){
-    max-width: 280px;
-    width: 90%;
-    padding:20px;
-    margin-bottom:30px;
-}
+
 
 `
 const Cards=styled.div`
 display:flex;
 justify-content:space-between;
-margin-top:100px;
+margin-top:30px;
+background:white;
 flex-wrap:wrap;
-@media (min-width: 260px) and (max-width: 820px){
+border: 2px solid #eeecea;
+border-radius: 30px;
+padding:40px;
+margin-bottom:30px;
+@media (min-width: 260px) and (max-width: 1100px){
 display:inline;
+border: none;
+border-radius: 0px;
+background:transparent;
 }
 `
 const Heading=styled.div`
@@ -212,6 +246,7 @@ font-size: 18px;
 font-weight: 400;
 color:gray;
 text-align:start;
+height:60px;
 `
 const Price=styled.p`
 font-size: 48px;
@@ -221,6 +256,13 @@ text-align:start;
 const Type=styled.span`
 color:gray;
 font-size:12px;
+`
+const Agree=styled.p`
+color:gray;
+font-size:12px;
+text-align:start;
+margin-top:-40px;
+margin-bottom:40px;
 `
 const Text=styled.p`
 font-size:16px;
@@ -236,6 +278,7 @@ font-weight:900;
 font-size:18px;
 text-align:start;
 margin-top:30px;
+height:40px;
 `
 const Dot=styled.div`
 background-color:black;
@@ -265,7 +308,54 @@ font-size:18px;
 margin-left:-5px;
 cursor:pointer;
 `
-
+const Demo=styled.button`
+background-color:white;
+background:white;
+color:black;
+font-weight:700;
+border-radius:8px;
+border:2px solid black;
+margin-right:10px;
+height:48px;
+margin-top:10px;
+width:90%;
+font-size:18px;
+margin-left:-5px;
+`
 const Pointdiv=styled.div`
-height:180px;
+height:230px;
+margin-bottom:10px;
+`
+const Toggle=styled.div`
+width:200px;
+border-radius:50px;
+background-color:#e3ddd8;
+display:flex;
+justify-content:space-evenly;
+height:52px;
+padding-top:7px;
+padding-bottom:7px;
+margin-top:100px;
+cursor:pointer;
+.active{
+border-radius:50px;
+background-color:white;
+color:#333;
+width:50%;
+font-weight:700;
+border:1px solid white;
+cursor:pointer;
+}
+.nonactive{
+color:#333;
+font-weight:700;
+border-radius:50px;
+background-color:#e3ddd8;
+border:1px solid #e3ddd8;
+cursor:pointer;
+}
+`
+const Togglediv=styled.div`
+display:flex;
+justify-content:center;
 `
