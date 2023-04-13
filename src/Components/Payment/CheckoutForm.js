@@ -12,8 +12,6 @@ import { useDispatch } from "react-redux";
   function CheckoutForm() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [loader,setLoader]=useState(false)
-
   const [country, setCountry] = useState('CA');
   const [postalCode, setPostalCode] = useState("");
     const stripe = useStripe();
@@ -21,8 +19,6 @@ import { useDispatch } from "react-redux";
     const options = useMemo(() => countryList().getData(), [])
     let dispatch=useDispatch()
     const createSubscription = async () => {
-        // setLoader(true)
-        // setLoader(false)
         try {
             const paymentMethod = await stripe.createPaymentMethod({
               card: elements.getElement("card"),
@@ -99,10 +95,8 @@ import { useDispatch } from "react-redux";
       </div>
       <br/>
       <br/>
-      <CustomButton variant="contained" type="submit" disabled={loader?true:false}   onClick={()=>createSubscription()}>
-      {loader?'loading'
-                    :
-                "Pay"}
+      <CustomButton variant="contained" type="submit" disabled={!stripe} onClick={()=>createSubscription()}>
+                Pay
       </CustomButton>
     </div>
   );

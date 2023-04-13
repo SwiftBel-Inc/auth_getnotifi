@@ -5,7 +5,9 @@ const SOCKET_SERVER_URL = 'https://prod.swiftbel.com';
 
 function TrackingMap() {
   const [map, setMap] = useState(null);
-  const [directions, setDirections] = useState(null);
+  const [
+    //directions,
+    setDirections] = useState(null);
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
@@ -62,25 +64,25 @@ function TrackingMap() {
           directionsRenderer.setDirections(result);
           setDirections(result);
 
-          const originMarker = new window.google.maps.Marker({
-            position: origin,
-            map,
-            icon: {
-              url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
-            },
-          });
+          // const originMarker = new window.google.maps.Marker({
+          //   position: origin,
+          //   map,
+          //   icon: {
+          //     url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
+          //   },
+          // });
 
-          const destinationMarker = new window.google.maps.Marker({
-            position: destination,
-            map,
-            icon: {
-              url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // Set the custom marker image
-            },
-          });
+          // const destinationMarker = new window.google.maps.Marker({
+          //   position: destination,
+          //   map,
+          //   icon: {
+          //     url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // Set the custom marker image
+          //   },
+          // });
         }
       });
     }
-  }, [map]);
+  }, [map,setDirections]);
 
   return <div id="map" style={{ height: '100vh' }} />;
 }

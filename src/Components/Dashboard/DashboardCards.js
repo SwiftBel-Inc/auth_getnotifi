@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { getpaymentIntent } from "../../store/Actions/Auth.action";
 import { useNavigate } from "react-router-dom";
 function DashboardCards(){
         //const [open, setOpen] = React.useState(false);
@@ -10,8 +9,8 @@ function DashboardCards(){
         const handleToggle=(type)=>{
             setActive(type)
             }
-        const [errormsg,setErrormsg]=useState('')
-        let dispatch=useDispatch();
+        //const [errormsg,setErrormsg]=useState('')
+        //let dispatch=useDispatch();
         let navigate=useNavigate()
         const handleClickOpen = async(price) => {
         //     console.log(price,'pricee')
@@ -133,7 +132,7 @@ return(
     <>
 <Main>
     <Head>
-        <span className="errormsg">{errormsg}</span>
+        {/* <span className="errormsg">{errormsg}</span> */}
         <Togglediv>
     <Toggle>
      <button className={active==='Monthly'?"active":"nonactive"} onClick={()=>handleToggle('Monthly')}>
@@ -308,20 +307,20 @@ font-size:18px;
 margin-left:-5px;
 cursor:pointer;
 `
-const Demo=styled.button`
-background-color:white;
-background:white;
-color:black;
-font-weight:700;
-border-radius:8px;
-border:2px solid black;
-margin-right:10px;
-height:48px;
-margin-top:10px;
-width:90%;
-font-size:18px;
-margin-left:-5px;
-`
+// const Demo=styled.button`
+// background-color:white;
+// background:white;
+// color:black;
+// font-weight:700;
+// border-radius:8px;
+// border:2px solid black;
+// margin-right:10px;
+// height:48px;
+// margin-top:10px;
+// width:90%;
+// font-size:18px;
+// margin-left:-5px;
+// `
 const Pointdiv=styled.div`
 height:230px;
 margin-bottom:10px;
