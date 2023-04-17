@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-const SOCKET_SERVER_URL = 'https://prod.swiftbel.com';
+//const SOCKET_SERVER_URL = 'https://prod.swiftbel.com';
 
 
 function TrackingMap() {
@@ -8,32 +8,55 @@ function TrackingMap() {
   const [
     //directions,
     setDirections] = useState(null);
-  const [socket, setSocket] = useState(null);
+ // const [socket, setSocket] = useState(null);
 
-  useEffect(() => {
-    const newSocket = io(SOCKET_SERVER_URL,{
-      cors: {
-        origin: 'http://localhost:3000',
-        methods: ['GET', 'POST'],
-        allowedHeaders: ['my-custom-header'],
-        credentials: true
-      }
-    });
-    newSocket.on('connect', () => {
-      console.log('Socket connected');
-    });
-    newSocket.on('error', (error) => {
-      console.error('Socket error:', error);
-    });
-    newSocket.on('connect_error', (error) => {
-      console.error('Socket connection error:', error);
-    });
-    setSocket(newSocket);
-    return () => {
-      newSocket.close();
+  // useEffect(() => {
+  //   const newSocket = io(SOCKET_SERVER_URL,{
+  //     cors: {
+  //       origin: 'http://localhost:3000',
+  //       methods: ['GET', 'POST'],
+  //       allowedHeaders: ['my-custom-header'],
+  //       credentials: true
+  //     }
+  //   });
+  //   newSocket.on('connect', () => {
+  //     console.log('Socket connected');
+  //   });
+  //   newSocket.on('error', (error) => {
+  //     console.error('Socket error:', error);
+  //   });
+  //   newSocket.on('connect_error', (error) => {
+  //     console.error('Socket connection error:', error);
+  //   });
+  //   setSocket(newSocket);
+  //   return () => {
+  //     newSocket.close();
+  //   };
+  // }, []);
+  // console.log(socket,'locationn')
+
+    useEffect(() => {
+      const socket = io('https://prod.swiftbel.com');
+
+      socket.on('connect', () => {
+        console.log('Connected to Socket.io server');
+      });
+
+      socket.on('conversation', (data) => {
+        console.log('Received conversation:', data);
+        // Handle received data here
+      });
+
+      return () => {
+        socket.disconnect();
+      };
+    }, []);
+
+    const handleClick = () => {
+      const socket = io('https://prod.swiftbel.com');
+      socket.emit('message', { text: 'Hello, server!' });
+      socket.disconnect();
     };
-  }, []);
-  console.log(socket,'locationn')
 
   useEffect(() => {
     const map = new window.google.maps.Map(document.getElementById('map'), {
@@ -84,7 +107,12 @@ function TrackingMap() {
     }
   }, [map,setDirections]);
 
-  return <div id="map" style={{ height: '100vh' }} />;
+  return (
+  <>
+  <h1 onClick={()=>handleClick()}>hey</h1>
+  <div id="map" style={{ height: '100vh' }} />;
+  </>
+  )
 }
 
 export default TrackingMap;

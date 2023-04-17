@@ -9,6 +9,7 @@ import styled from '@emotion/styled';
 const Payment = () => {
 let subtype= localStorage.getItem('type')
 let price= localStorage.getItem('price')
+const priceId = 'price_1MwTL6IP0V9hIrNSWNwthD1x';
 
   return (
     <Main>
@@ -16,10 +17,10 @@ let price= localStorage.getItem('price')
     <PriceSection>
     <p>Pay Notifi </p>
     <MainPrice>US ${price}</MainPrice>
-    <div style={{}}>
+    <Subsection>
     <p>Subscription type</p>
     <p>{subtype}</p>
-    </div>
+    </Subsection>
     <Subsection>
     <p>Package</p>
     <p>Standard</p>
@@ -33,7 +34,7 @@ let price= localStorage.getItem('price')
     </Left>
     <Right>
     <Elements stripe={stripePromise} >
-    <CheckoutForm/>
+    <CheckoutForm priceId={priceId}/>
   </Elements>
   </Right>
   </Main>
@@ -55,7 +56,7 @@ overflow:hidden;
 margin-right:100px;
 padding:80px;
 padding-left:200px;
-height:570px;
+height:620px;
 @media (min-width: 260px) and (max-width: 1311px){
 display:none;
 }
@@ -64,7 +65,7 @@ const Right = styled.div`
 width:40%;
 overflow:hidden;
 margin-right:200px;
-padding-top:80px;
+padding-top:20px;
 @media (min-width: 260px) and (max-width: 1311px){
 display:none;
 }
