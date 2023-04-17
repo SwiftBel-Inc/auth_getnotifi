@@ -28,11 +28,11 @@ function App() {
         <Route path="/blog" element={<Builder/>} />
         <Route element={<ProtectedRoute/>}>
         <Route path='/dashboard' element={<Dashboard/>}></Route>
+        <Route path='/payment' element={<Payment/>}></Route>
         </Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/' element={<SignUpPage/>}></Route>
         <Route path='/tracking' element={<Tracking/>}></Route>
-        <Route path='/payment' element={<Payment/>}></Route>
 
         {/* <Route path='/chats' element={<Chats/>}></Route> */}
 
