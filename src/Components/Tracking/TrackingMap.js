@@ -44,7 +44,6 @@ function TrackingMap() {
 
       socket.on('conversation', (data) => {
         console.log('Received conversation:', data);
-        // Handle received data here
       });
 
       return () => {
