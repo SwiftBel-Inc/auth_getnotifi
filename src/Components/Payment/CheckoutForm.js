@@ -6,11 +6,10 @@ import styled from "styled-components";
 import { useMemo } from "react";
 import countryList from 'react-select-country-list'
 import { Select } from "@mui/material";
-//import { getpaymentIntent } from "../../store/Actions/Auth.action";
-//import { useDispatch } from "react-redux";
-//import { loadStripe } from "@stripe/stripe-js";
+import { getpaymentIntent } from "../../store/Actions/Auth.action";
+import { useDispatch } from "react-redux";
 
-  function CheckoutForm({priceId}) {
+  function CheckoutForm() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
   const [country, setCountry] = useState('CA');
@@ -18,58 +17,59 @@ import { Select } from "@mui/material";
     const stripe = useStripe();
     const elements = useElements();
     const options = useMemo(() => countryList().getData(), [])
-    //let dispatch=useDispatch()
-    // const createSubscription = async () => {
-    //     try {
-    //         const paymentMethod = await stripe.createPaymentMethod({
-    //           card: elements.getElement(CardNumberElement),
-    //           type: "card",
-    //         //   billing_details: {
-    //         //     name: name,
-    //         //     address: {
-    //         //         postal_code: postalCode,
-    //         //         country: country
-    //         //     }
-    //         // }
-    //         });
-    //         console.log(paymentMethod,'iddd')
-    //         const response = await dispatch(getpaymentIntent({
-    //             "name":name,
-    //             "email":email,
-    //             "paymentMethod":paymentMethod.paymentMethod.id,
-    //             "amount":0
-    //         }))
-    //         console.log(paymentMethod.paymentMethod.id,'idc')
-    //         if (!response.ok) return alert("Payment unsuccessful!");
-    //         const data = await response.json();
-    //         const confirm = await stripe.confirmCardPayment(data.clientSecret);
-    //         if (confirm.error) return alert("Payment unsuccessful!");
-    //         alert("Payment Successful! Subscription active.");
-    //      }
-    //     catch (err) {
-    //         console.error(err);
-    //         alert("Payment failed! " + err.message);
-    //       }
-    // };
-
+    let dispatch=useDispatch()
     const createSubscription = async () => {
-        const paymentMethod = await stripe.createPaymentMethod({
-          type: 'card',
-          card: elements.getElement(CardNumberElement),
-          billing_details: {
-            email,
-          },
-        });
-        console.log(paymentMethod,'paymentt')
-        console.log(stripe.subscription,'strpee')
+        try {
+            const paymentMethod = await stripe.createPaymentMethod({
+              card: elements.getElement(CardNumberElement),
+              type: "card",
+              billing_details: {
+                name: name,
+                address: {
+                    postal_code: postalCode,
+                    country: country
+                }
+            }
+            });
+            console.log(paymentMethod,'iddd')
+            const response = await dispatch(getpaymentIntent({
+                "name":name,
+                "email":email,
+                "paymentMethod":paymentMethod.paymentMethod.id,
+                //"amount":0,
+                "priceId":"price_1MwV53IP0V9hIrNSBGDihUDf"
+            }))
+            console.log(paymentMethod.paymentMethod.id,'idc')
+            if (!response.ok) return alert("Payment unsuccessful!");
+            const data = await response.json();
+            const confirm = await stripe.confirmCardPayment(data.clientSecret);
+            if (confirm.error) return alert("Payment unsuccessful!");
+            alert("Payment Successful! Subscription active.");
+         }
+        catch (err) {
+            console.error(err);
+            alert("Payment failed! " + err.message);
+          }
+    };
 
-           const subscribeMethod = await stripe.subscriptions.create({
-              customer_email: email,
-            items: [{ price: priceId }],
-            payment_behavior: 'default_incomplete',
-            expand: ['latest_invoice.payment_intent'],
-          });
-       console.log(subscribeMethod,'subscribemethod')
+    // const createSubscription = async () => {
+    //     const paymentMethod = await stripe.createPaymentMethod({
+    //       type: 'card',
+    //       card: elements.getElement(CardNumberElement),
+    //       billing_details: {
+    //         email,
+    //       },
+    //     });
+    //     console.log(paymentMethod,'paymentt')
+    //     console.log(stripe.subscription,'strpee')
+
+    //        const subscribeMethod = await stripe.subscriptions.create({
+    //           customer_email: email,
+    //         items: [{ price: priceId }],
+    //         payment_behavior: 'default_incomplete',
+    //         expand: ['latest_invoice.payment_intent'],
+    //       });
+    //    console.log(subscribeMethod,'subscribemethod')
         //   const { latest_invoice } = subscribeError;
         //   const { payment_intent } = latest_invoice;
         //   if (payment_intent.status === 'requires_action') {
@@ -87,16 +87,16 @@ import { Select } from "@mui/material";
         //   console.log(error);
         //   return { success: false };
         // }
-      };
-      const handleSubmit = async () => {
-        //event.preventDefault();
-        const result = await createSubscription(priceId, email);
-        if (result.success) {
-          console.log('Subscription successful!');
-        } else {
-          console.log('Subscription failed!');
-        }
-      };
+      //};
+    //   const handleSubmit = async () => {
+    //     //event.preventDefault();
+    //     const result = await createSubscription(priceId, email);
+    //     if (result.success) {
+    //       console.log('Subscription successful!');
+    //     } else {
+    //       console.log('Subscription failed!');
+    //     }
+    //   };
     return (
         <div className="stripe-form">
         <div>
@@ -141,7 +141,7 @@ import { Select } from "@mui/material";
       </div>
       <br/>
       <br/>
-      <CustomButton variant="contained" type="submit"  onClick={()=>handleSubmit()}>
+      <CustomButton variant="contained" type="submit"  onClick={()=>createSubscription()}>
                 Pay
       </CustomButton>
     </div>

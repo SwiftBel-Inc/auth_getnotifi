@@ -9,7 +9,6 @@ import styled from '@emotion/styled';
 const Payment = () => {
 let subtype= localStorage.getItem('type')
 let price= localStorage.getItem('price')
-const priceId = 'price_1MwTL6IP0V9hIrNSWNwthD1x';
 
   return (
     <Main>
@@ -34,7 +33,7 @@ const priceId = 'price_1MwTL6IP0V9hIrNSWNwthD1x';
     </Left>
     <Right>
     <Elements stripe={stripePromise} >
-    <CheckoutForm priceId={priceId}/>
+    <CheckoutForm/>
   </Elements>
   </Right>
   </Main>

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 //const SOCKET_SERVER_URL = 'https://prod.swiftbel.com';
+import WebSocket from 'ws';
 
+const socket = io('https://prod.swiftbel.com');
 
 function TrackingMap() {
   const [map, setMap] = useState(null);
@@ -35,27 +37,43 @@ function TrackingMap() {
   // }, []);
   // console.log(socket,'locationn')
 
+    // useEffect(() => {
+    //   const socket = io('https://prod.swiftbel.com');
+    //   socket.on('connection', () => {
+    //     console.log('Connected to Socket.io server');
+    //   });
+
+    //   socket.on('join_room', (data) => {
+    //     console.log('Received conversation:', data);
+    //   });
+
+    //   return () => {
+    //     socket.disconnect();
+    //   };
+    // }, []);
+
+    // const handleClick = () => {
+    //   const socket = io('https://prod.swiftbel.com');
+    //   socket.emit('send_message', { text: 'Hello, server!' });
+    //   socket.disconnect();
+    // };
+
     useEffect(() => {
-      const socket = io('https://prod.swiftbel.com');
-
-      socket.on('connect', () => {
-        console.log('Connected to Socket.io server');
-      });
-
-      socket.on('conversation', (data) => {
-        console.log('Received conversation:', data);
+      socket.on("join_room", () => {
+        console.log('connected');
       });
 
       return () => {
         socket.disconnect();
       };
-    }, []);
+    }, [socket]);
 
-    const handleClick = () => {
-      const socket = io('https://prod.swiftbel.com');
-      socket.emit('message', { text: 'Hello, server!' });
-      socket.disconnect();
-    };
+    // const sendMessage = () => {
+    //   socket.emit('send_message', {
+    //     room: 'join_room',
+    //     message: 'Hello, server!'
+    //   });
+    // };
 
   useEffect(() => {
     const map = new window.google.maps.Map(document.getElementById('map'), {
@@ -108,7 +126,9 @@ function TrackingMap() {
 
   return (
   <>
-  <h1 onClick={()=>handleClick()}>hey</h1>
+  <h1
+  //onClick={()=>sendMessage()}
+  >hey</h1>
   <div id="map" style={{ height: '100vh' }} />;
   </>
   )
