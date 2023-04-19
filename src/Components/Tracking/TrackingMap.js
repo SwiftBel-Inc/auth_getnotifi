@@ -75,9 +75,9 @@ function TrackingMap() {
 
   return (
   <>
-  <h1
+  {/* <h1
   //onClick={()=>sendMessage()}
-  >hey</h1>
+  >hey</h1> */}
   <div id="map" style={{ height: '100vh' }} />;
   </>
   )
