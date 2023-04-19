@@ -8,14 +8,21 @@ function TrackingMap() {
     //directions,
     setDirections] = useState(null);
     useEffect(() => {
-      socket.on("join_room", () => {
-        console.log('connected');
-      });
-
+      //socket.emit('join_room','hello world')
+      // socket.on("join_room", () => {
+      //   socket.connect()
+      //   console.log('connected');
+      // });
+      socket.on('join_room', (msg) => {
+      console.log(msg, "msg")
+      socket.close()
+      socket.connect()
+    })
       return () => {
-        socket.disconnect();
+        //socket.disconnect('join_room');
+        socket.off('join_room');
       };
-    }, [socket]);
+    }, []);
 
   useEffect(() => {
     const map = new window.google.maps.Map(document.getElementById('map'), {

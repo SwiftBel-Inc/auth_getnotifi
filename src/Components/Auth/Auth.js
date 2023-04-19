@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import logo from '../../assets/notifilogo.png';
 import { loginUsers } from '../../store/Actions/Auth.action';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Auth(){
 const [customtext,setCustomtext]=useState('Next')
@@ -14,6 +15,7 @@ const [isValid, setisvalid] = useState();
 const [ispassValid, setispassvalid] = useState();
 const [errormsg,setErrormsg]=useState(null)
 let dispatch=useDispatch();
+let navigate = useNavigate();
  const handlelogin=async()=>{
     //let reg =  /^([\w\.-]+@[\w\.-]+(\.[\w]+)*)|(\d{3}-\d{3}-\d{4})$/;
     setErrormsg(null)
@@ -32,6 +34,9 @@ let dispatch=useDispatch();
         "email":email,
         "password":password
         }))
+        if(res?.status===true){
+            navigate('/dashboard')
+            }
         if(res?.status===false){
         setErrormsg(res?.meesage)
         }
