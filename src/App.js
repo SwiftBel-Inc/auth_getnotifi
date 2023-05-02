@@ -3,6 +3,7 @@ import React, {Suspense, lazy} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
 import Payment from './Pages/Payment';
+import GoogleBusiness from './Pages/GoogleBusiness';
 // import Chats from './Pages/Chats';
 const Builder =lazy(()=>import('./Pages/Builder'))
 const SignUpPage =lazy(()=>import('./Pages/SignUpPage'));
@@ -33,6 +34,7 @@ function App() {
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/' element={<SignUpPage/>}></Route>
         <Route path='/tracking' element={<Tracking/>}></Route>
+        <Route path='/google-business' element={<GoogleBusiness/>}></Route>
 
         {/* <Route path='/chats' element={<Chats/>}></Route> */}
 
