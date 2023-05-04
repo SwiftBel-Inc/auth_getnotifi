@@ -17,7 +17,7 @@ function Connect(){
       const headers = new Headers({
         Authorization: `Bearer ${response.accessToken}`,
       });
-      fetch('https://cors-anywhere.herokuapp.com/https://mybusiness.googleapis.com/v4/accounts', { headers })
+      fetch('https://cors-anywhere.herokuapp.com/https://mybusinessplaceactions.googleapis.com/v4/accounts', { headers })
         .then(response => response.json())
         .then(data => {
           console.log(data,'successfully connected');

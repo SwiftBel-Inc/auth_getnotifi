@@ -33,7 +33,7 @@ function App() {
         </Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/' element={<SignUpPage/>}></Route>
-        <Route path='/tracking' element={<Tracking/>}></Route>
+        <Route path= '/tracking/:id/:id2' element={<Tracking/>}></Route>
         <Route path='/google-business' element={<GoogleBusiness/>}></Route>
 
         {/* <Route path='/chats' element={<Chats/>}></Route> */}
