@@ -8,6 +8,8 @@ function TrackingMap() {
   const [map, setMap] = useState(null);
   const [destlat, setDestlat] = useState(null);
   const [destlng, setDestlng] = useState(null);
+  const [placename, setPlaceName] = useState(null);
+  const [placename2, setPlaceName2] = useState(null);
 
   let location=useLocation()
   console.log(location.pathname.split('/'))
@@ -54,6 +56,26 @@ function TrackingMap() {
             setDestlng(position.coords.longitude)
             console.log("Latitude:", position.coords.latitude);
             console.log("Longitude:", position.coords.longitude);
+            fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'OK') {
+              setPlaceName(data.results[0].formatted_address);
+              console.log('placename',data.results[0].formatted_address)
+            } else {
+              console.log('Geocode was not successful for the following reason:', data.status);
+            }
+          })
+          fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords?.[2]},${coords?.[3]}&key=AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'OK') {
+              setPlaceName2(data.results[0].formatted_address);
+              console.log('placename2',data.results[0].formatted_address)
+            } else {
+              console.log('Geocode was not successful for the following reason:', data.status);
+            }
+          })
           },
           (error) => {
             console.error("Error getting location:", error);
@@ -65,7 +87,7 @@ function TrackingMap() {
       const origin = new window.google.maps.LatLng(coords?.[2], coords?.[3]);
       const destination = new window.google.maps.LatLng(destlat, destlng);
 
-      // const originMarker = new window.google.maps.Marker({
+// const originMarker = new window.google.maps.Marker({
       //   position: origin,
       //   map,
       //   icon: {
@@ -101,10 +123,10 @@ function TrackingMap() {
   >hey</h1> */}
 
     <Details>
-    <Destination><span className='left'>Starting point: </span> 5911 US-101, San Francisco, CA 94103, USA</Destination>
+    <Destination><span className='left'>Starting point: </span> {placename}</Destination>
     </Details>
     <Details>
-    <Destination><span className='left'>Destination:  </span> Martin Luther King Jr. Way, Berkeley, CA 94704, USA </Destination>
+    <Destination><span className='left'>Destination:  </span> {placename2}</Destination>
     </Details>
   <div id="map" style={{ height: '100vh' }} />;
   </>
