@@ -6,6 +6,9 @@ const socket = io('https://prod.swiftbel.com');
 
 function TrackingMap() {
   const [map, setMap] = useState(null);
+  const [destlat, setDestlat] = useState(null);
+  const [destlng, setDestlng] = useState(null);
+
   let location=useLocation()
   console.log(location.pathname.split('/'))
   let coords=location.pathname.split('/')
@@ -44,9 +47,24 @@ function TrackingMap() {
       const directionsRenderer = new window.google.maps.DirectionsRenderer({
         map,
       });
-
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setDestlat(position.coords.latitude)
+            setDestlng(position.coords.longitude)
+            console.log("Latitude:", position.coords.latitude);
+            console.log("Longitude:", position.coords.longitude);
+          },
+          (error) => {
+            console.error("Error getting location:", error);
+          }
+        );
+      } else {
+        console.error("Geolocation is not available");
+      }
       const origin = new window.google.maps.LatLng(coords?.[2], coords?.[3]);
-      const destination = new window.google.maps.LatLng(37.8716, -122.2727);
+      const destination = new window.google.maps.LatLng(destlat, destlng);
+
       // const originMarker = new window.google.maps.Marker({
       //   position: origin,
       //   map,
