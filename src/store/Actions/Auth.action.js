@@ -62,3 +62,14 @@ export const getpaymentIntent=(value) => async (dispatch) => {
     }
     return res
   }
+
+  export const getLocationDetails = (value) => async (dispatch) => {
+    const res = await NetworkOps.get(`${ServiceEnum.locationDetails}?referenceNo=${value}`)
+    if (res.status === true) {
+      dispatch({
+        type: 'LOCATION',
+        payload: res.data
+      })
+    }
+    return res;
+  }
