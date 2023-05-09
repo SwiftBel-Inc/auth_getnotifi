@@ -145,7 +145,7 @@ let dispatch=useDispatch()
      <Details2></Details2>
     <Details>
     <Destination><span className='left'>Starting point: </span> {placename2}</Destination>
-    <Destination><span className='left'>Destination:</span> {Locationdetails}</Destination>
+    <Destination><span className='left'>Destination:</span> {Locationdetails?Locationdetails:'N/A'}</Destination>
     </Details>
     <Details2></Details2>
     </Segment>
