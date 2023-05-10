@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import styled from 'styled-components';
 import { getLocationDetails } from '../../store/Actions/Auth.action';
 import { useDispatch, useSelector } from 'react-redux';
+import mapStyles from './mapStyles';
 const socket = io('https://prod.swiftbel.com');
 
 function TrackingMap() {
@@ -12,6 +13,8 @@ function TrackingMap() {
   const [destlng, setDestlng] = useState(null);
   const [zoom, setZoom] = useState(10);
   const [placename2, setPlaceName2] = useState(null);
+  const [distance, setDistance] = useState(null);
+  const [duration, setDuration] = useState(null);
 
   let location=useLocation()
   console.log(location.pathname.split('/'))
@@ -47,11 +50,13 @@ let dispatch=useDispatch()
     const map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat:start1, lng: start2},
       zoom: zoom,
+      disableDefaultUI: true,
+      styles: mapStyles
     });
     setMap(map);
     init(refnumber)
 
-  }, [refnumber,start1,start2]);
+  }, [refnumber,start1,start2,zoom]);
   const handleResize = () => {
     const width = window.innerWidth;
     let newZoom;
@@ -75,6 +80,9 @@ let dispatch=useDispatch()
       const directionsService = new window.google.maps.DirectionsService();
       const directionsRenderer = new window.google.maps.DirectionsRenderer({
         map,
+          polylineOptions: {
+            strokeColor: "black"
+          }
       });
           fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${Locationdetails}&key=AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA`)
   .then(response => response.json())
@@ -103,35 +111,48 @@ let dispatch=useDispatch()
             };
             directionsService.route(request, (result, status) => {
               if (status === window.google.maps.DirectionsStatus.OK) {
+                const distance = result.routes[0].legs[0].distance.text;
+                const duration = result.routes[0].legs[0].duration.text;
+                setDistance(distance)
+                setDuration(duration)
+                console.log("Distance: ", distance);
+                console.log("Duration: ", duration);
                 directionsRenderer.setDirections(result);
                 setDirections(result);
+              } else {
+                console.error("Directions request failed due to " + status);
               }
             });
-
+            const originMarker = new window.google.maps.Marker({
+                      position: origin,
+                      map,
+                      icon: {
+                        url: 'https://www.flaticon.com/free-icon/car_3097180?term=car&page=1&position=5&origin=search&related_id=3097180',
+                      },
+                    });
             const destinationMarker = new window.google.maps.Marker({
               position: destination,
               map: map,
+              icon: {
+                url: 'https://www.flaticon.com/free-icon/car_3097180?term=car&page=1&position=5&origin=search&related_id=3097180',
+              },
             });
           }
-          const origin = new window.google.maps.LatLng(coords?.[2], coords?.[3]);
-          const originMarker = new window.google.maps.Marker({
-            position: origin,
-            map: map,
-          });
         }
+
 // const originMarker = new window.google.maps.Marker({
-      //   position: origin,
-      //   map,
-      //   icon: {
-      //     url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
-      //   },
-      // });
+//         position: origin,
+//         map,
+//         icon: {
+//           url: 'https://www.flaticon.com/free-icon/car_3097180?term=car&page=1&position=5&origin=search&related_id=3097180',
+//         },
+//       });
 
       // const destinationMarker = new window.google.maps.Marker({
-      //   position: destination,
+      //  // position: destination,
       //   map,
       //   icon: {
-      //     url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // Set the custom marker image
+      //     url: 'https://www.flaticon.com/free-icon/car_3097180?term=car&page=1&position=5&origin=search&related_id=3097180', // Set the custom marker image
       //   },
       // });
   }, [map,setDirections,coords,destlat,destlng,Locationdetails]);
@@ -146,6 +167,8 @@ let dispatch=useDispatch()
     <Details>
     <Destination><span className='left'>Starting point: </span> {placename2}</Destination>
     <Destination><span className='left'>Destination:</span> {Locationdetails?Locationdetails:'N/A'}</Destination>
+    <Destination><span className='left'>Distance: </span> {distance}</Destination>
+    <Destination><span className='left'>Duration: </span> {duration}</Destination>
     </Details>
     <Details2></Details2>
     </Segment>
@@ -178,7 +201,18 @@ font-weight:800;
 }
 `
 const Segment=styled.div`
-padding:20px;
+padding-left:20px;
+padding-right:20px;
+padding-top:5px;
+padding-bottom:5px;
 display:flex;
 justify-content:space-between;
 `
+// const BlackAndWhiteMap = styled.div`
+// #map {
+//   filter: grayscale(100%) brightness(100%);
+//   .mapboxgl-marker {
+//     color: blue;
+//   }
+// }
+// `;

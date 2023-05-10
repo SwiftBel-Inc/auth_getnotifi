@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import logo from './assets/notifilogo.png';
-import blackburger from './assets/blackburger.png'
+//import blackburger from './assets/blackburger.png'
 import { Drawer } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
@@ -23,7 +23,7 @@ return(
 <Head>
 <MobHead>
 <Dummy>
-<Burger src={blackburger} onClick={()=>setOpen2(true)}/>
+{/* <Burger src={blackburger} onClick={()=>setOpen2(true)}/> */}
 </Dummy>
 <div>
 <Image src={logo} alt='logo' onClick={()=>navigate('/')}/>
@@ -91,6 +91,9 @@ position:sticky;
 Top:0;
 height:80px;
 z-index:2;
+@media (min-width: 890px) and (max-width: 9999px){
+  display:none;
+  }
 `
 const MobHead=styled.div`
 width:100%;
@@ -209,15 +212,15 @@ padding-bottom:30px;
 cursor:pointer;
 object-fit: contain;
 `
-const Burger = styled.img`
-width:30px;
-height:15px;
-display:flex;
-margin-top:10px;
-@media (min-width: 890px) and (max-width: 9999px){
-    display:none;
-    }
-`
+// const Burger = styled.img`
+// width:30px;
+// height:15px;
+// display:flex;
+// margin-top:10px;
+// @media (min-width: 890px) and (max-width: 9999px){
+//     display:none;
+//     }
+// `
 const Dummy = styled.div`
 display:flex;
 @media (min-width: 890px) and (max-width: 9999px){
