@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
 import Payment from './Pages/Payment';
 import GoogleBusiness from './Pages/GoogleBusiness';
-// import Chats from './Pages/Chats';
+import Chats from './Pages/Chats';
 const Builder =lazy(()=>import('./Pages/Builder'))
 const SignUpPage =lazy(()=>import('./Pages/SignUpPage'));
 const Tracking =lazy(()=>import('./Pages/Tracking'));
@@ -36,7 +36,7 @@ function App() {
         <Route path= '/tracking/:id/:id2/:refno' element={<Tracking/>}></Route>
         <Route path='/google-business' element={<GoogleBusiness/>}></Route>
 
-        {/* <Route path='/chats' element={<Chats/>}></Route> */}
+        <Route path='/dashboard/messenger' element={<Chats/>}></Route>
 
       </Routes>
       {/* {window.location.pathname==='/login'||window.location.pathname==='/'?

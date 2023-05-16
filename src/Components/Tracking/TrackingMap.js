@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
 import styled from 'styled-components';
-import { getLocationDetails } from '../../store/Actions/Auth.action';
+import { getLocationDetails
+  //, getTrackingDetails
+} from '../../store/Actions/Auth.action';
 import { useDispatch, useSelector } from 'react-redux';
-import mapStyles from './mapStyles';
+import DetailsPopup from './DetailsPopup';
+
 const socket = io('https://prod.swiftbel.com');
+
 
 function TrackingMap() {
   const [map, setMap] = useState(null);
@@ -16,7 +20,7 @@ function TrackingMap() {
   const [distance, setDistance] = useState(null);
   const [duration, setDuration] = useState(null);
 
-  let location=useLocation()
+    let location=useLocation()
   console.log(location.pathname.split('/'))
   let coords=location.pathname.split('/')
   const [
@@ -28,21 +32,26 @@ function TrackingMap() {
       //   socket.connect()
       //   console.log('connected');
       // });
-      socket.on('join_room', (msg) => {
-      console.log(msg, "msg")
-      socket.close()
-      socket.connect()
-    })
-      return () => {
+    //   socket.connect()
+    //   socket.on('join_room', (msg) => {
+    //   console.log(msg, "msg")
+    //   socket.close()
+    //   socket.connect()
+    // })
+     // return () => {
         //socket.disconnect('join_room');
-        socket.off('join_room');
-      };
+        //socket.off('join_room');
+      //};
+      socket.emit('join_room','hello')
+      socket.on('join_room',msg=>{
+      console.log(msg,"msdddd")
+    })
+    socket.connect()
+    //socket.off('join_room');
     }, []);
+
 let refnumber = coords?.[4]
 let dispatch=useDispatch()
-    const init=async(refno)=>{
-      await dispatch(getLocationDetails(refno))
-          }
         let start1=  parseFloat(coords?.[2])
         let start2=  parseFloat(coords?.[3])
 
@@ -51,12 +60,11 @@ let dispatch=useDispatch()
       center: { lat:start1, lng: start2},
       zoom: zoom,
       disableDefaultUI: true,
-      styles: mapStyles
+      //styles: mapStyles
     });
     setMap(map);
-    init(refnumber)
-
-  }, [refnumber,start1,start2,zoom]);
+    dispatch(getLocationDetails(refnumber))
+  }, [refnumber,start1,start2,zoom,dispatch]);
   const handleResize = () => {
     const width = window.innerWidth;
     let newZoom;
@@ -79,17 +87,42 @@ let dispatch=useDispatch()
     if (map) {
       const directionsService = new window.google.maps.DirectionsService();
       const directionsRenderer = new window.google.maps.DirectionsRenderer({
+        suppressMarkers: true,
         map,
           polylineOptions: {
             strokeColor: "black"
           }
       });
+      new window.google.maps.Marker({
+        position: { lat: start1, lng: start2 },
+        map: map,
+        icon: {
+          url: 'https://www.pngitem.com/pimgs/m/276-2761008_gps-icon-gps-black-png-transparent-png.png',
+          size: new window.google.maps.Size(32, 32),
+          origin: new window.google.maps.Point(0, 0),
+          anchor: new window.google.maps.Point(16, 32),
+        },
+        label: "A",
+      });
+       new window.google.maps.Marker({
+        position: { lat: destlat, lng: destlng },
+        map: map,
+        icon: {
+          url: 'https://www.pngitem.com/pimgs/m/276-2761008_gps-icon-gps-black-png-transparent-png.png',
+          size: new window.google.maps.Size(32, 32),
+          origin: new window.google.maps.Point(0, 0),
+          anchor: new window.google.maps.Point(16, 32),
+        },
+        label: "B",
+      });
+      //setMarkers([markerA, markerB]);
+  console.log(start1,start2,destlat,destlng)
           fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${Locationdetails}&key=AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA`)
   .then(response => response.json())
   .then(data => {
     const location = data.results[0].geometry.location;
-    setDestlat(location.lat.toString())
-    setDestlng(location.lng.toString())
+    setDestlat(location.lat)
+    setDestlng(location.lng)
   });
           fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords?.[2]},${coords?.[3]}&key=AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA`)
           .then(response => response.json())
@@ -123,39 +156,11 @@ let dispatch=useDispatch()
                 console.error("Directions request failed due to " + status);
               }
             });
-            const originMarker = new window.google.maps.Marker({
-                      position: origin,
-                      map,
-                      icon: {
-                        url: 'https://www.flaticon.com/free-icon/car_3097180?term=car&page=1&position=5&origin=search&related_id=3097180',
-                      },
-                    });
-            const destinationMarker = new window.google.maps.Marker({
-              position: destination,
-              map: map,
-              icon: {
-                url: 'https://www.flaticon.com/free-icon/car_3097180?term=car&page=1&position=5&origin=search&related_id=3097180',
-              },
-            });
           }
+
         }
 
-// const originMarker = new window.google.maps.Marker({
-//         position: origin,
-//         map,
-//         icon: {
-//           url: 'https://www.flaticon.com/free-icon/car_3097180?term=car&page=1&position=5&origin=search&related_id=3097180',
-//         },
-//       });
-
-      // const destinationMarker = new window.google.maps.Marker({
-      //  // position: destination,
-      //   map,
-      //   icon: {
-      //     url: 'https://www.flaticon.com/free-icon/car_3097180?term=car&page=1&position=5&origin=search&related_id=3097180', // Set the custom marker image
-      //   },
-      // });
-  }, [map,setDirections,coords,destlat,destlng,Locationdetails]);
+  }, [map,setDirections,coords,destlat,destlng,Locationdetails,start1,start2]);
 
   return (
   <>
@@ -172,7 +177,10 @@ let dispatch=useDispatch()
     </Details>
     <Details2></Details2>
     </Segment>
-  <div id="map" style={{ height: '100vh' }} />;
+  <div id="map" style={{ height: '100vh' }} />
+  {window.innerWidth<800?
+    <DetailsPopup startingpoint={placename2} destination={Locationdetails?Locationdetails:'N/A'} distance={distance} duration={duration}/>
+    :''}
   </>
   )
 }
@@ -207,6 +215,9 @@ padding-top:5px;
 padding-bottom:5px;
 display:flex;
 justify-content:space-between;
+@media (min-width: 260px) and (max-width: 820px){
+display:none;
+}
 `
 // const BlackAndWhiteMap = styled.div`
 // #map {
@@ -216,3 +227,4 @@ justify-content:space-between;
 //   }
 // }
 // `;
+

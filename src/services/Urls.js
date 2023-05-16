@@ -7,7 +7,8 @@ export const ServiceEnum={
     displayNumber:'user/displayNumber',
     buyNumber:'user/buyNumber',
     paymentLink:'user/notify/subscription',
-    locationDetails:'user/notify/getLocation'
+    locationDetails:'user/notify/getLocation',
+    livetracker:'tracker'
 }
 
 export const urlFor =(services)=>{

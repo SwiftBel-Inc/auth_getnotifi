@@ -73,3 +73,14 @@ export const getpaymentIntent=(value) => async (dispatch) => {
     }
     return res;
   }
+
+  export const getTrackingDetails = () => async (dispatch) => {
+    const res = await NetworkOps.get(`${ServiceEnum.livetracker}`)
+    if (res.status === true) {
+      dispatch({
+        type: 'TRACKING',
+        payload: res.data
+      })
+    }
+    return res;
+  }
