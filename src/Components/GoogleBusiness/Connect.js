@@ -1,30 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GoogleLogin from 'react-google-login';
 
 function Connect(){
+    const [businessDetails, setBusinessDetails] = useState(null);
+
     useEffect(() => {
         window.gapi.load('client:auth2', () => {
             window.gapi.client.init({
                 clientId: '943526723324-31g5g1h4uqi9qjnjhr4p6hjun1in96oc.apps.googleusercontent.com',
                 plugin_name: "chats",
                 scope:'https://www.googleapis.com/auth/business.manage'
-            })
+            }).then(() => {
+                checkConnectionStatus();
+              });
         })
       }, []);
+
+      const checkConnectionStatus = () => {
+        window.gapi.client.request({
+          path: 'https://mybusiness.googleapis.com/v4/accounts',
+        }).then(response => {
+          const { result } = response;
+          if (result && result.accounts && result.accounts.length > 0) {
+            setBusinessDetails(result.accounts[0]);
+          }
+        }).catch(error => {
+          console.error(error);
+        });
+      };
     const responseGoogle = (response) => {
       console.log(response,'responsee');
       const headers = new Headers({
         Authorization: `Bearer ${response.accessToken}`,
       });
-      fetch('https://cors-anywhere.herokuapp.com/https://mybusinessplaceactions.googleapis.com/v4/accounts', { headers })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data,'successfully connected');
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      fetch('https://mybusiness.googleapis.com/v4/accounts', { headers })
+      .then(response => response.json())
+      .then(data => {
+        if (data.accounts && data.accounts.length > 0) {
+          setBusinessDetails(data.accounts[0]);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
     };
 
 return(

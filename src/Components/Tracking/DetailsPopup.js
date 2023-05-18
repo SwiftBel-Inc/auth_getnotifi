@@ -34,11 +34,11 @@ function DetailsPopup(props){
     const [open, setOpen] = React.useState(false);
 const headings=[
 {
-head:'Starting point',
+head:'A - Starting point ',
 tail:props?.startingpoint
 },
 {
-head:'Destination',
+head:'B - Destination',
 tail:props?.destination
 },
 {
@@ -56,7 +56,6 @@ tail:props?.duration
     };
 
     const container = window !== undefined ? () => window().document.body : undefined;
-console.log(headings.key,'headings')
 return(
 <>
 <Root>

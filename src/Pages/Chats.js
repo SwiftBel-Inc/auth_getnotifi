@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import LeftChat from '../Components/Dashboard/LeftChat';
+import RightChat from '../Components/Dashboard/RightChat';
 
 function Chats() {
-
+console.log(window.innerHeight,'heihgt')
   return (
-    <Main>
+    <Main style={{maxHeight:window.innerHeight-120}}>
       <Head>
      <Left>
-
+      <LeftChat/>
      </Left>
       <Right>
-<hr style={{marginTop:'100px'}}/>
+        <RightChat/>
       </Right>
       </Head>
     </Main>
@@ -24,6 +26,7 @@ display:flex;
 justify-content:center;
 padding-bottom:70px;
 margin-bottom:50px;
+overflow:hidden;
 `
 const Head=styled.div`
 width:1312px;
@@ -35,10 +38,17 @@ padding-right:30px;
 }
 `
 const Left = styled.div`
-width:300px;
-border-right:1px solid gray;
-height:1000px;
+width:400px;
+border-right:1px solid lightgray;
+overflow-y: scroll;
+&::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 `
 const Right = styled.div`
-
+background:white;
+width:900px;
+margin-left:30px;
+position:sticky;
 `

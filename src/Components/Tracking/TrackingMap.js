@@ -27,27 +27,15 @@ function TrackingMap() {
     //directions,
     setDirections] = useState(null);
     useEffect(() => {
-      //socket.emit('join_room','hello world')
-      // socket.on("join_room", () => {
-      //   socket.connect()
-      //   console.log('connected');
-      // });
-    //   socket.connect()
-    //   socket.on('join_room', (msg) => {
-    //   console.log(msg, "msg")
-    //   socket.close()
-    //   socket.connect()
-    // })
-     // return () => {
-        //socket.disconnect('join_room');
-        //socket.off('join_room');
-      //};
-      socket.emit('join_room','hello')
-      socket.on('join_room',msg=>{
-      console.log(msg,"msdddd")
+      socket.emit('join_room','hello world')
+      socket.on('join_room', (msg) => {
+      console.log(msg, "msg")
+      socket.close()
+      socket.connect()
     })
-    socket.connect()
-    //socket.off('join_room');
+     return () => {
+        socket.off('join_room');
+      };
     }, []);
 
 let refnumber = coords?.[4]
