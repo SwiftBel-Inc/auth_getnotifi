@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import profile from '../../assets/profile.png'
+import { getAllconversations, getnumber } from '../../store/Actions/Auth.action'
+import { useDispatch, useSelector } from 'react-redux'
 
 function LeftChat(){
+    let dispatch = useDispatch();
+    const detail = useSelector(state => state?.auth?.convo)
+    console.log(detail,'conversations')
+    useEffect(() => {
+        dispatch(getAllconversations('+16042435773'));
+      },[]);
+const handledate=(x)=>{
+    const date = new Date(x);
+    const options = { day: 'numeric', month: 'long' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    return formattedDate
+}
+const getColor = (index) => {
+    const colors = ['pink', 'orange', 'violet'];
+    const colorIndex = (index - 1) % colors.length;
+    return colors[colorIndex];
+  };
+const handlechats=async(num)=>{
+await dispatch(getnumber(num))
+}
 return(
 <Main>
 <Heading>Notifi Chat</Heading>
@@ -11,66 +33,23 @@ return(
 <br/><br/>
 <br/>
 <br/>
-<Chat>
+{detail?
+detail.map((item,index)=>{
+return(
+<Chat onClick={()=>handlechats(item?.to)} key={index}>
 <Chatpro>
-<ProfileImage src={profile} alt='profileimg' className='pink'/>
+<ProfileImage src={profile} alt='profileimg' className={getColor(index + 1)}/>
 <Message>
-<p className='number'>+916388240136</p>
-<p className='text'>Hello , how are you?!</p>
+<p className='number'>{item?.to}</p>
+<p className='text'>{item?.body?.length>25 ? `${item?.body.slice(0,25)}...`:item?.body}</p>
 </Message>
 </Chatpro>
-<Date>14 may</Date>
+<Datestyle>{handledate(item?.createdAt)}</Datestyle>
 </Chat>
-<Chat>
-<Chatpro>
-<ProfileImage src={profile} alt='profileimg' className='orange'/>
-<Message>
-<p className='number'>+916388240136</p>
-<p className='text'>Hello , how are you?!</p>
-</Message>
-</Chatpro>
-<Date>14 may</Date>
-</Chat>
-<Chat>
-<Chatpro>
-<ProfileImage src={profile} alt='profileimg' className='violet'/>
-<Message>
-<p className='number'>+916388240136</p>
-<p className='text'>Hello , how are you?!</p>
-</Message>
-</Chatpro>
-<Date>14 may</Date>
-</Chat>
-<Chat>
-<Chatpro>
-<ProfileImage src={profile} alt='profileimg' className='pink'/>
-<Message>
-<p className='number'>+916388240136</p>
-<p className='text'>Hello , how are you?!</p>
-</Message>
-</Chatpro>
-<Date>14 may</Date>
-</Chat>
-<Chat>
-<Chatpro>
-<ProfileImage src={profile} alt='profileimg' className='orange'/>
-<Message>
-<p className='number'>+916388240136</p>
-<p className='text'>Hello , how are you?!</p>
-</Message>
-</Chatpro>
-<Date>14 may</Date>
-</Chat>
-<Chat>
-<Chatpro>
-<ProfileImage src={profile} alt='profileimg' className='violet'/>
-<Message>
-<p className='number'>+916388240136</p>
-<p className='text'>Hello , how are you?!</p>
-</Message>
-</Chatpro>
-<Date>14 may</Date>
-</Chat>
+)
+})
+:''}
+
 </Main>
 )
 }
@@ -123,15 +102,17 @@ margin-left:20px;
 margin-top:-12px;
 .number{
 font-size:16px;
+text-align:start;
 }
 .text{
 font-size:14px;
 color:gray;
 margin-top:-10px;
 margin-left:5px;
+text-align:start;
 }
 `
-const Date=styled.p`
+const Datestyle=styled.p`
 font-size:14px;
 color:#000099;
 margin-top:-1px

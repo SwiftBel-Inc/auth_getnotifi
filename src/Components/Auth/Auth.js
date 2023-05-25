@@ -59,7 +59,7 @@ return(
 <Left>
 <Image src={logo} alt='logo' />
 {isValid === false ? <Msg className='errormsg'>
-Incorrect email or mobile number. Please try again!
+Incorrect email Please try again!
 </Msg> :
 isValid === false||ispassValid===false ? <Msg className='errormsg'>
 Incorrect email or password. Please try again!
@@ -72,7 +72,7 @@ errormsg?
 :
 null}
 <br/>
-<Inputbox id="outlined-basic" label="Email or mobile number" variant="outlined" onChange={(e) => onChangeEmail(e)} required error={isValid!==false?false:true} />
+<Inputbox id="outlined-basic" label="Email" variant="outlined" onChange={(e) => onChangeEmail(e)} required error={isValid!==false?false:true} />
 <br/>
 {customtext==='Sign in'?
 <Inputbox id="outlined-basic" label="Password" variant="outlined" type={'password'} required onChange={(e) => onChangePassword(e)} error={ispassValid!==false?false:true} />

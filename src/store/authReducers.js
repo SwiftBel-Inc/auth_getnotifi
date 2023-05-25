@@ -4,7 +4,10 @@ const initialState = {
     dispnum:'',
     buynum:'',
     payment:'',
-    locationdetails:''
+    locationdetails:'',
+    convo:'',
+    globenum:'',
+    chats:''
 }
 
 const authReducers = (state = initialState, action) => {
@@ -21,6 +24,12 @@ const authReducers = (state = initialState, action) => {
              return ({...state, payment: action.payload})
        case 'LOCATION' :
              return ({...state, locationdetails: action.payload})
+       case 'CONVO' :
+             return ({...state, convo: action.payload})
+       case 'CHATS' :
+             return ({...state, chats: action.payload})
+       case 'GLOBENUM' :
+             return ({...state, globenum: action.payload})
         default:
             return state;
     }

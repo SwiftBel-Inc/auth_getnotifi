@@ -34,7 +34,7 @@ function Connect(){
       const headers = new Headers({
         Authorization: `Bearer ${response.accessToken}`,
       });
-      fetch('https://mybusiness.googleapis.com/v4/accounts', { headers })
+      fetch(`${'https://serene-shore-18290.herokuapp.com/'}https://mybusiness.googleapis.com/v4/accounts`, { headers, mode: 'cors' })
       .then(response => response.json())
       .then(data => {
         if (data.accounts && data.accounts.length > 0) {

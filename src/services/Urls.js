@@ -8,7 +8,9 @@ export const ServiceEnum={
     buyNumber:'user/buyNumber',
     paymentLink:'user/notify/subscription',
     locationDetails:'user/notify/getLocation',
-    livetracker:'tracker'
+    livetracker:'tracker',
+    conversations:'twilio/fetchAllConversation',
+    chats:'twilio/fetchConversation'
 }
 
 export const urlFor =(services)=>{

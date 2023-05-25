@@ -34,11 +34,11 @@ function DetailsPopup(props){
     const [open, setOpen] = React.useState(false);
 const headings=[
 {
-head:'A - Starting point ',
+head:'Starting point',
 tail:props?.startingpoint
 },
 {
-head:'B - Destination',
+head:'Destination',
 tail:props?.destination
 },
 {
@@ -106,10 +106,20 @@ return(
           }}
         >
          {headings?.map((x)=>{
-        return(<>
+        return(<div style={{display:'flex'}}>
+            <div>
+             {x.head==='Starting point'?
+            <img src={'https://s3.amazonaws.com/swiftbel.com/tracking+(1).png'} style={{marginBottom:'-30px',marginRight:'15px'}}/>
+             :x.head==='Destination'?
+             <img src={'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png'} style={{marginBottom:'-30px',marginRight:'15px'}}/>
+             :<div style={{width:'50px'}}></div>
+            }
+            </div>
+            <div>
             <p style={{color:'gray',fontSize:'12px'}}>{x.head}</p>
             <p  style={{fontSize:'14px',marginTop:'-10px',fontWeight:'500'}}>{x.tail}</p>
-           </>
+            </div>
+           </div>
         )
         })}
         </StyledBox>

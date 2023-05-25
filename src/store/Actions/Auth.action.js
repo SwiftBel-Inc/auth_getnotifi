@@ -84,3 +84,33 @@ export const getpaymentIntent=(value) => async (dispatch) => {
     }
     return res;
   }
+
+  export const getAllconversations=(value)=>async (dispatch)=>{
+    const res=await NetworkOps.post(`${ServiceEnum.conversations}?from=${value}`)
+        if(res.status===true){
+        dispatch({
+            type: 'CONVO',
+            payload: res.data
+          })
+        }
+    return res
+}
+
+export const getAllchats=(number,value)=>async (dispatch)=>{
+    const res=await NetworkOps.post(`${ServiceEnum.chats}?to=${number}&from=${value}`)
+        if(res.status===true){
+        dispatch({
+            type: 'CHATS',
+            payload: res.data
+          })
+        }
+    return res
+}
+
+export const getnumber=(number)=>async (dispatch)=>{
+        dispatch({
+            type: 'GLOBENUM',
+            payload: number
+          })
+    return number
+}

@@ -7,6 +7,7 @@ import { getLocationDetails
 } from '../../store/Actions/Auth.action';
 import { useDispatch, useSelector } from 'react-redux';
 import DetailsPopup from './DetailsPopup';
+import mapStyles from './mapStyles';
 
 const socket = io('https://prod.swiftbel.com');
 
@@ -19,7 +20,8 @@ function TrackingMap() {
   const [placename2, setPlaceName2] = useState(null);
   const [distance, setDistance] = useState(null);
   const [duration, setDuration] = useState(null);
-
+  const [livelat, setlivelat] = useState(null);
+  const [livelng, setlivelng] = useState(null);
     let location=useLocation()
   console.log(location.pathname.split('/'))
   let coords=location.pathname.split('/')
@@ -27,9 +29,12 @@ function TrackingMap() {
     //directions,
     setDirections] = useState(null);
     useEffect(() => {
-      socket.emit('join_room','hello world')
+      socket.connect()
+      // socket.emit('join_room','hello worldddd')
       socket.on('join_room', (msg) => {
       console.log(msg, "msg")
+      setlivelat(msg?.latitude)
+      setlivelng(msg?.longitude)
       socket.close()
       socket.connect()
     })
@@ -85,23 +90,21 @@ let dispatch=useDispatch()
         position: { lat: start1, lng: start2 },
         map: map,
         icon: {
-          url: 'https://www.pngitem.com/pimgs/m/276-2761008_gps-icon-gps-black-png-transparent-png.png',
+          url: 'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png',
           size: new window.google.maps.Size(32, 32),
           origin: new window.google.maps.Point(0, 0),
           anchor: new window.google.maps.Point(16, 32),
         },
-        label: "A",
       });
        new window.google.maps.Marker({
         position: { lat: destlat, lng: destlng },
         map: map,
         icon: {
-          url: 'https://www.pngitem.com/pimgs/m/276-2761008_gps-icon-gps-black-png-transparent-png.png',
+          url: 'https://s3.amazonaws.com/swiftbel.com/tracking+(1).png',
           size: new window.google.maps.Size(32, 32),
           origin: new window.google.maps.Point(0, 0),
           anchor: new window.google.maps.Point(16, 32),
         },
-        label: "B",
       });
       //setMarkers([markerA, markerB]);
   console.log(start1,start2,destlat,destlng)
