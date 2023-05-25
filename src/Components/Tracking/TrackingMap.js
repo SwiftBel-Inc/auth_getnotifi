@@ -20,11 +20,14 @@ function TrackingMap() {
   const [placename2, setPlaceName2] = useState(null);
   const [distance, setDistance] = useState(null);
   const [duration, setDuration] = useState(null);
-  const [livelat, setlivelat] = useState(null);
-  const [livelng, setlivelng] = useState(null);
-    let location=useLocation()
+  let location=useLocation()
   console.log(location.pathname.split('/'))
   let coords=location.pathname.split('/')
+  let start1=  parseFloat(coords?.[2])
+  let start2=  parseFloat(coords?.[3])
+  const [livelat, setlivelat] = useState(start1);
+  const [livelng, setlivelng] = useState(start2);
+
   const [
     //directions,
     setDirections] = useState(null);
@@ -45,19 +48,18 @@ function TrackingMap() {
 
 let refnumber = coords?.[4]
 let dispatch=useDispatch()
-        let start1=  parseFloat(coords?.[2])
-        let start2=  parseFloat(coords?.[3])
+
 
   useEffect(() => {
     const map = new window.google.maps.Map(document.getElementById('map'), {
-      center: { lat:start1, lng: start2},
+      center: { lat:livelat, lng: livelng},
       zoom: zoom,
       disableDefaultUI: true,
       //styles: mapStyles
     });
     setMap(map);
     dispatch(getLocationDetails(refnumber))
-  }, [refnumber,start1,start2,zoom,dispatch]);
+  }, [refnumber,livelat,livelng,zoom,dispatch]);
   const handleResize = () => {
     const width = window.innerWidth;
     let newZoom;
@@ -87,7 +89,7 @@ let dispatch=useDispatch()
           }
       });
       new window.google.maps.Marker({
-        position: { lat: start1, lng: start2 },
+        position: { lat: livelat, lng: livelng },
         map: map,
         icon: {
           url: 'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png',
@@ -107,7 +109,7 @@ let dispatch=useDispatch()
         },
       });
       //setMarkers([markerA, markerB]);
-  console.log(start1,start2,destlat,destlng)
+  console.log(livelat,livelng,destlat,destlng)
           fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${Locationdetails}&key=AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA`)
   .then(response => response.json())
   .then(data => {
@@ -151,7 +153,7 @@ let dispatch=useDispatch()
 
         }
 
-  }, [map,setDirections,coords,destlat,destlng,Locationdetails,start1,start2]);
+  }, [map,setDirections,coords,destlat,destlng,Locationdetails,livelat,livelng]);
 
   return (
   <>
