@@ -96,11 +96,22 @@ export const getpaymentIntent=(value) => async (dispatch) => {
     return res
 }
 
-export const getAllchats=(number,value)=>async (dispatch)=>{
+export const getAlloutchats=(number,value)=>async (dispatch)=>{
     const res=await NetworkOps.post(`${ServiceEnum.chats}?to=${number}&from=${value}`)
         if(res.status===true){
         dispatch({
-            type: 'CHATS',
+            type: 'OUTCHATS',
+            payload: res.data
+          })
+        }
+    return res
+}
+
+export const getAllinchats=(number,value)=>async (dispatch)=>{
+    const res=await NetworkOps.post(`${ServiceEnum.chats}?to=${number}&from=${value}`)
+        if(res.status===true){
+        dispatch({
+            type: 'INCHATS',
             payload: res.data
           })
         }
@@ -113,4 +124,20 @@ export const getnumber=(number)=>async (dispatch)=>{
             payload: number
           })
     return number
+}
+
+export const getcolor=(color)=>async (dispatch)=>{
+    dispatch({
+        type: 'GLOBECOLOR',
+        payload: color
+      })
+return color
+}
+
+export const getname=(name)=>async (dispatch)=>{
+    dispatch({
+        type: 'GLOBENAME',
+        payload: name
+      })
+return name
 }

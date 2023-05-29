@@ -7,7 +7,10 @@ const initialState = {
     locationdetails:'',
     convo:'',
     globenum:'',
-    chats:''
+    outchats:'',
+    inchats:'',
+    globecolor:'pink',
+    globename:''
 }
 
 const authReducers = (state = initialState, action) => {
@@ -26,10 +29,16 @@ const authReducers = (state = initialState, action) => {
              return ({...state, locationdetails: action.payload})
        case 'CONVO' :
              return ({...state, convo: action.payload})
-       case 'CHATS' :
-             return ({...state, chats: action.payload})
+       case 'OUTCHATS' :
+             return ({...state, outchats: action.payload})
+       case 'INCHATS' :
+             return ({...state, inchats: action.payload})
        case 'GLOBENUM' :
              return ({...state, globenum: action.payload})
+       case 'GLOBECOLOR' :
+             return ({...state, globecolor: action.payload})
+       case 'GLOBENAME' :
+             return ({...state, globename: action.payload})
         default:
             return state;
     }

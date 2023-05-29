@@ -6,7 +6,12 @@ import { grey } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles((theme) => ({
+    disableScroll: {
+      overflow: 'hidden',
+    },
+  }));
 function DetailsPopup(props){
     const drawerBleeding = 56;
 
@@ -29,6 +34,8 @@ function DetailsPopup(props){
     top: 8,
     left: 'calc(50% - 15px)',
   }));
+
+  const classes = useStyles();
 
     const { window } = props;
     const [open, setOpen] = React.useState(false);
@@ -53,6 +60,12 @@ tail:props?.duration
 
     const toggleDrawer = (newOpen) => () => {
       setOpen(newOpen);
+      if(newOpen===true){
+      document.body.classList.add(classes.disableScroll);
+      }
+      else{
+        document.body.classList.remove(classes.disableScroll);
+      }
     };
 
     const container = window !== undefined ? () => window().document.body : undefined;

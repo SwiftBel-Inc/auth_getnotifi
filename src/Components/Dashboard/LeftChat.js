@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import profile from '../../assets/profile.png'
-import { getAllconversations, getnumber } from '../../store/Actions/Auth.action'
+import { getAllconversations, getcolor, getname, getnumber } from '../../store/Actions/Auth.action'
 import { useDispatch, useSelector } from 'react-redux'
 
 function LeftChat(){
@@ -10,7 +10,7 @@ function LeftChat(){
     const detail = useSelector(state => state?.auth?.convo)
     console.log(detail,'conversations')
     useEffect(() => {
-        dispatch(getAllconversations('+16042435773'));
+        dispatch(getAllconversations('18676709314'));
       },[]);
 const handledate=(x)=>{
     const date = new Date(x);
@@ -23,8 +23,10 @@ const getColor = (index) => {
     const colorIndex = (index - 1) % colors.length;
     return colors[colorIndex];
   };
-const handlechats=async(num)=>{
+const handlechats=async(num,color,name)=>{
 await dispatch(getnumber(num))
+await dispatch(getcolor(color))
+await dispatch(getname(name))
 }
 return(
 <Main>
@@ -33,14 +35,15 @@ return(
 <br/><br/>
 <br/>
 <br/>
+<Chats>
 {detail?
 detail.map((item,index)=>{
 return(
-<Chat onClick={()=>handlechats(item?.to)} key={index}>
+<Chat onClick={()=>handlechats(item?.to,getColor(index + 1),item?.name)} key={index}>
 <Chatpro>
 <ProfileImage src={profile} alt='profileimg' className={getColor(index + 1)}/>
 <Message>
-<p className='number'>{item?.to}</p>
+<p className='number'>{item?.name?item?.name:item?.to}</p>
 <p className='text'>{item?.body?.length>25 ? `${item?.body.slice(0,25)}...`:item?.body}</p>
 </Message>
 </Chatpro>
@@ -49,7 +52,7 @@ return(
 )
 })
 :''}
-
+</Chats>
 </Main>
 )
 }
@@ -65,6 +68,7 @@ width:80%;
 margin-right:10px;
 `
 const Main=styled.div`
+
 @media (min-width: 1488px) and (max-width: 9999px){
 }
 `
@@ -116,4 +120,12 @@ const Datestyle=styled.p`
 font-size:14px;
 color:#000099;
 margin-top:-1px
+`
+const Chats=styled.div`
+height:65vh;
+overflow-y: scroll;
+&::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 `

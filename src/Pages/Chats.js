@@ -40,15 +40,9 @@ padding-right:30px;
 const Left = styled.div`
 width:400px;
 border-right:1px solid lightgray;
-overflow-y: scroll;
-&::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
 `
 const Right = styled.div`
 background:white;
 width:900px;
 margin-left:30px;
-position:sticky;
 `
