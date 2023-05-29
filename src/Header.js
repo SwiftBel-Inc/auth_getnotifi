@@ -22,13 +22,13 @@ return(
 <Main>
 <Head>
 <MobHead>
-<Dummy>
-{/* <Burger src={blackburger} onClick={()=>setOpen2(true)}/> */}
-</Dummy>
+{/* <Dummy>
+<Burger src={blackburger} onClick={()=>setOpen2(true)}/>
+</Dummy> */}
 <div>
 <Image src={logo} alt='logo' onClick={()=>navigate('/')}/>
 </div>
-<Dummy></Dummy>
+{/* <Dummy></Dummy> */}
 </MobHead>
 <WebHead>
 <div>
