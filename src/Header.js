@@ -92,8 +92,18 @@ z-index:2;
   }
 `
 const MobHead=styled.div`
-display:flex;
-justify-content:start;
+width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  padding-left: 10px;
+  padding-right: 10px;
 @media (min-width: 890px) and (max-width: 9999px){
   display:none;
   }
