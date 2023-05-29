@@ -1,5 +1,12 @@
 
 export const LOCAL_HOST="https://prod.swiftbel.com";
+export const renderTop =()=>{
+    window.scroll({
+    top:0,
+    left:0,
+    behavior:'smooth',
+    });
+    };
 
 export const ServiceEnum={
     register:"user/notify/signup",

@@ -6,6 +6,7 @@ import { grey } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { renderTop } from "../../services/Urls";
 
 function DetailsPopup(props){
     const drawerBleeding = 56;
@@ -64,6 +65,9 @@ tail:props?.destination
 
     const toggleDrawer = (newOpen) => () => {
       setOpen(newOpen);
+      if(newOpen===false){
+        renderTop();
+      }
       if(newOpen===true){
         document.body.style.overflow = 'hidden';
     }
