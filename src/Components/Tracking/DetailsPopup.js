@@ -44,17 +44,22 @@ head:'Starting point',
 tail:props?.startingpoint
 },
 {
-head:'Destination',
-tail:props?.destination
-},
-{
 head:'Distance',
 tail:props?.distance
 },
 {
-head:'Duration',
-tail:props?.duration
+head:'Destination',
+tail:props?.destination
 },
+// {
+// head:'Distance',
+// tail:props?.distance
+// },
+
+// {
+// head:'Duration',
+// tail:props?.duration
+// },
 ]
 
     const toggleDrawer = (newOpen) => () => {
@@ -108,33 +113,116 @@ return(
           }}
         >
           <Puller />
-          <p style={{fontSize:'18px',paddingLeft:'20px'}}>Robert is on the way</p>
+          <p style={{fontSize:'22px',paddingLeft:'20px',fontWeight:'600'}}>Robert is on the way</p>
         </StyledBox>
         <StyledBox
           sx={{
             px: 2,
             pb: 2,
             height: '100%',
-            overflow: 'auto',
           }}
         >
-         {headings?.map((x)=>{
-        return(<div style={{display:'flex'}}>
-            <div>
-             {x.head==='Starting point'?
-            <img src={'https://s3.amazonaws.com/swiftbel.com/truck.png'} style={{marginBottom:'-30px',marginRight:'15px'}}/>
-             :x.head==='Destination'?
-             <img src={'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png'} style={{marginBottom:'-30px',marginRight:'15px'}}/>
-             :<div style={{width:'50px'}}></div>
-            }
-            </div>
-            <div>
-            <p style={{color:'gray',fontSize:'12px'}}>{x.head}</p>
-            <p  style={{fontSize:'14px',marginTop:'-10px',fontWeight:'500'}}>{x.tail}</p>
-            </div>
-           </div>
-        )
-        })}
+        <div style={{
+        display:'flex',
+        justifyContent:'space-between',
+        marginTop:'10px'
+        }}>
+        <div style={{display:'flex'}}>
+        <img src={'https://s3.amazonaws.com/swiftbel.com/truck.png'}
+        style={{
+        marginRight:'15px',
+        height:'40px',
+        width:'40px',
+        marginTop:'40px'
+        }}/>
+        <div>
+            <p
+            style={{
+            color:'gray',
+            fontSize:'16px'
+            }}>
+            Starting point
+            </p>
+            <p
+            style={{
+            fontSize:'16px',
+            marginTop:'-12px',
+            fontWeight:'500',
+            width:'90%',
+            fontWeight:'600'
+            }}>
+            {props.startingpoint}
+            </p>
+        </div>
+        </div>
+        <div
+        style={{
+        width:'120px',
+        borderRadius:'15px',
+        padding:'7px',
+        paddingBottom:'0px',
+        textAlign:'center',
+        background:'#ECECEC',
+        cursor:'pointer',
+        height:'40px',
+        marginTop:'40px',
+        marginRight:'10px'
+        }}
+        onClick={toggleDrawer(false)}
+        >
+         Navigate
+        </div>
+        </div>
+
+        <div style={{display:'flex'}}>
+        <div class="vertical-hr"></div>
+        </div>
+
+        <div style={{
+        display:'flex',
+        justifyContent:'space-between',
+        }}>
+        <div style={{display:'flex'}}>
+        <img src={'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png'}
+        style={{
+        marginRight:'15px',
+        height:'40px',
+        width:'40px',
+        marginTop:'25px'
+        }}/>
+        <div>
+            <p
+            style={{
+            color:'gray',
+            fontSize:'16px'
+            }}>
+            Destination
+            </p>
+            <p
+            style={{
+            fontSize:'16px',
+            marginTop:'-12px',
+            fontWeight:'500',
+            width:'90%',
+            fontWeight:'600'
+            }}>
+            {props.destination}
+            </p>
+        </div>
+        </div>
+        <div
+        style={{
+        textAlign:'center',
+        marginTop:'35px',
+        marginRight:'10px'
+        }}
+        >
+         {props.duration}
+        </div>
+        </div>
+        <hr style={{marginTop:'20px',marginBottom:'20px'}}/>
+        <p>Distance : {props?.distance}</p>
+        <p>Duration : {props?.duration}</p>
         </StyledBox>
       </SwipeableDrawer>
     </Root>

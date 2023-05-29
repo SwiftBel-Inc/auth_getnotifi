@@ -91,3 +91,13 @@ color: red;
       padding-left: 18px;
       padding-bottom:16px;
     }
+    .vertical-hr {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 1em;
+      border: none;
+      border-right: 1px solid black;
+      height: 30px;
+      position: relative;
+    }
