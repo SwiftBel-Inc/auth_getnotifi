@@ -204,6 +204,7 @@ height: 30px;
   object-fit: contain;
   display: block;
   margin: 0;
+  -webkit-align-self: flex-start;
 `
 const Image2=styled.img`
 height:30px;
