@@ -99,11 +99,8 @@ width: 100%;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-  padding-left: 10px;
-  padding-right: 10px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
 @media (min-width: 890px) and (max-width: 9999px){
   display:none;
   }
