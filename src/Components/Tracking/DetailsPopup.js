@@ -122,7 +122,7 @@ return(
         return(<div style={{display:'flex'}}>
             <div>
              {x.head==='Starting point'?
-            <img src={'https://s3.amazonaws.com/swiftbel.com/tracking+(1).png'} style={{marginBottom:'-30px',marginRight:'15px'}}/>
+            <img src={'https://s3.amazonaws.com/swiftbel.com/truck.png'} style={{marginBottom:'-30px',marginRight:'15px'}}/>
              :x.head==='Destination'?
              <img src={'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png'} style={{marginBottom:'-30px',marginRight:'15px'}}/>
              :<div style={{width:'50px'}}></div>

@@ -55,7 +55,7 @@ let dispatch=useDispatch()
       center: { lat:livelat, lng: livelng},
       zoom: zoom,
       disableDefaultUI: true,
-      //styles: mapStyles
+      styles: mapStyles
     });
     setMap(map);
     dispatch(getLocationDetails(refnumber))
@@ -92,7 +92,7 @@ let dispatch=useDispatch()
         position: { lat: livelat, lng: livelng },
         map: map,
         icon: {
-          url: 'https://s3.amazonaws.com/swiftbel.com/tracking+(1).png',
+          url: 'https://s3.amazonaws.com/swiftbel.com/truck.png',
           size: new window.google.maps.Size(32, 32),
           origin: new window.google.maps.Point(0, 0),
           anchor: new window.google.maps.Point(16, 32),
