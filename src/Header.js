@@ -22,13 +22,7 @@ return(
 <Main>
 <Head>
 <MobHead>
-{/* <Dummy>
-<Burger src={blackburger} onClick={()=>setOpen2(true)}/>
-</Dummy> */}
-<div>
 <Image src={logo} alt='logo' onClick={()=>navigate('/')}/>
-</div>
-{/* <Dummy></Dummy> */}
 </MobHead>
 <WebHead>
 <div>
@@ -98,7 +92,7 @@ z-index:2;
 const MobHead=styled.div`
 width:100%;
 display:flex;
-justify-content:start;
+justify-content:flex-start;;
 padding-left:10px;
 padding-right:10px;
 @media (min-width: 890px) and (max-width: 9999px){
