@@ -199,6 +199,8 @@ height: 30px;
   padding-top: 10px;
   cursor: pointer;
   object-fit: contain;
+  display: block;
+  margin: 0;
 `
 const Image2=styled.img`
 height:30px;
