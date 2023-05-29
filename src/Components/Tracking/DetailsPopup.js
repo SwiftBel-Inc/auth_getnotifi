@@ -9,6 +9,11 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
 function DetailsPopup(props){
     const drawerBleeding = 56;
+    const drawerBackdropProps = {
+        style: {
+          backgroundColor: 'transparent',
+        },
+      };
 
   const Root = styled('div')(({ theme }) => ({
     height: '100%',
@@ -86,6 +91,7 @@ return(
         onOpen={toggleDrawer(true)}
         swipeAreaWidth={drawerBleeding}
         disableSwipeToOpen={false}
+        BackdropProps={drawerBackdropProps}
         ModalProps={{
           keepMounted: true,
         }}
