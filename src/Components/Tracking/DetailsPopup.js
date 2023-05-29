@@ -120,6 +120,7 @@ return(
             px: 2,
             pb: 2,
             height: '100%',
+            overflow:'auto',
           }}
         >
         <div style={{
@@ -220,9 +221,11 @@ return(
          {props.duration}
         </div>
         </div>
-        <hr style={{marginTop:'20px',marginBottom:'20px'}}/>
-        <p>Distance : {props?.distance}</p>
-        <p>Duration : {props?.duration}</p>
+        <hr style={{marginTop:'10px',marginBottom:'10px'}}/>
+        <div style={{display:'flex',justifyContent:'space-between'}}>
+        <p><span style={{color:'gray'}}>Distance :</span> {props?.distance}</p>
+        <p><span style={{color:'gray'}}>Duration :</span> {props?.duration}</p>
+        </div>
         </StyledBox>
       </SwipeableDrawer>
     </Root>
