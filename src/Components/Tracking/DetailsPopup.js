@@ -97,6 +97,7 @@ return(
         swipeAreaWidth={drawerBleeding}
         disableSwipeToOpen={false}
         BackdropProps={drawerBackdropProps}
+        disableScrollLock
         ModalProps={{
           keepMounted: true,
         }}
