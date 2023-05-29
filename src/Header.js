@@ -20,7 +20,7 @@ export default Header
 const MobHead=styled.div`
   width: 100%;
   display:flex;
-  justify-content:start;
+  justify-content:flex-start;
   padding-top:20px;
   padding-bottom:20px;
   padding-left:20px;
