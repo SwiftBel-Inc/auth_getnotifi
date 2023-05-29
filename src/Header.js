@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import logo from './assets/notifilogo.png';
 //import blackburger from './assets/blackburger.png'
@@ -18,9 +18,9 @@ export default Header
 
 
 const MobHead=styled.div`
-width: 100%;
-  display: flex;
-  justify-content: flex-start;
+  width: 100%;
+  display:flex;
+  justify-content:start;
   padding-top:20px;
   padding-bottom:20px;
   padding-left:20px;
