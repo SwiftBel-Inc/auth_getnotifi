@@ -23,7 +23,7 @@ return(
 <Head>
 <MobHead>
 <div>
-<Image src={logo} alt='logo' onClick={()=>navigate('/')}/>
+{/* <Image src={logo} alt='logo' onClick={()=>navigate('/')}/> */}
 </div>
 <Dummy>
 {/* <Burger src={blackburger} onClick={()=>setOpen2(true)}/> */}
