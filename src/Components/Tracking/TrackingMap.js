@@ -156,7 +156,7 @@ let dispatch=useDispatch()
   }, [map,setDirections,coords,destlat,destlng,Locationdetails,livelat,livelng]);
 
   return (
-  <>
+  <div style={{overflow:'hidden'}}>
   {/* <h1
   //onClick={()=>sendMessage()}
   >hey</h1> */}
@@ -170,11 +170,11 @@ let dispatch=useDispatch()
     </Details>
     <Details2></Details2>
     </Segment>
-  <div id="map" style={{ height: '80vh' , overflow:'hidden'}} />
+  <div id="map" style={{ height: '80vh'}} />
   {window.innerWidth<800?
     <DetailsPopup startingpoint={placename2} destination={Locationdetails?Locationdetails:'N/A'} distance={distance} duration={duration}/>
     :''}
-  </>
+  </div>
   )
 }
 
