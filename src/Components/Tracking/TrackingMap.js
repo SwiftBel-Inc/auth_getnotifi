@@ -155,6 +155,7 @@ let dispatch=useDispatch()
 
   }, [map,setDirections,coords,destlat,destlng,Locationdetails,livelat,livelng]);
 
+  console.log(Math.ceil(window.innerHeight/10)+20,'height')
   return (
   <div style={{overflow:'hidden'}}>
   {/* <h1
@@ -170,7 +171,7 @@ let dispatch=useDispatch()
     </Details>
     <Details2></Details2>
     </Segment>
-  <div id="map" style={{ height: '80vh',overflow:'hidden'}} />
+  <div id="map" style={{ height: `${Math.ceil(window.innerHeight/10)}vh`,overflow:'hidden'}} />
   {window.innerWidth<800?
     <DetailsPopup startingpoint={placename2} destination={Locationdetails?Locationdetails:'N/A'} distance={distance} duration={duration}/>
     :''}
