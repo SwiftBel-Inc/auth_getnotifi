@@ -170,7 +170,7 @@ let dispatch=useDispatch()
     </Details>
     <Details2></Details2>
     </Segment>
-  <div id="map" style={{ height: '80vh'}} />
+  <div id="map" style={{ height: '80vh',overflow:'hidden'}} />
   {window.innerWidth<800?
     <DetailsPopup startingpoint={placename2} destination={Locationdetails?Locationdetails:'N/A'} distance={distance} duration={duration}/>
     :''}
