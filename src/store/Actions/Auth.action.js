@@ -141,3 +141,15 @@ export const getname=(name)=>async (dispatch)=>{
       })
 return name
 }
+
+export const sendMessage=(data)=>async (dispatch)=>{
+    const res=await NetworkOps.post(ServiceEnum.sendMessage,data)
+        if(res.status===true)
+        {
+        dispatch({
+            type: 'SENDMESSAGE',
+            payload:res?.data
+          })
+        }
+    return res
+}

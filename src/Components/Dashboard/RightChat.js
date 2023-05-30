@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import io from 'socket.io-client';
-import {getAllinchats, getAlloutchats } from '../../store/Actions/Auth.action'
+import {getAllinchats, getAlloutchats, sendMessage } from '../../store/Actions/Auth.action'
 import profile from '../../assets/profile.png'
+import Sendicon from '../../../src/assets/send.png'
 const socket = io('https://prod.swiftbel.com');
 
 function RightChat(){
     const globenumber = useSelector(state => state?.auth?.globenum)
     const globecolor = useSelector(state => state?.auth?.globecolor)
     const globename = useSelector(state => state?.auth?.globename)
-
+const [message,setMessage]=useState(null)
     let dispatch=useDispatch()
     useEffect(()=>{
         dispatch(getAllinchats('+16042435773','+917060208598'));
@@ -54,9 +55,32 @@ function RightChat(){
 console.log(outchats,'outchats')
 console.log(inchats,'inchats')
 
+const handlesend=(e)=>{
+console.log(e.target.value,'message')
+setMessage(e.target.value)
+}
+const sendchat=()=>{
+if(message){
+ dispatch(sendMessage(
+    {
+        "from": '+16042435773',
+        "to": globenumber,
+        "body": message
+      }
+))
+ setMessage('')
+    }
+}
+
+const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+        sendchat();
+    }
+  };
+console.log(message,'meesage')
 const combinedArray = outchats&&inchats ? outchats?.concat(inchats):''
 let alldata= combinedArray?combinedArray?.sort((a, b) => {
-  return new Date(a.createdAt) - new Date(b.createdAt);
+  return  new Date(b.createdAt) - new Date(a.createdAt);
 })
 :''
 console.log(alldata,'combines');
@@ -94,7 +118,11 @@ SB
 })
 :''}
 </Texts2>
-<SendMessage type='text' placeholder='send a message'/>
+{/* <SendMessage type='text' placeholder='send a message' onChange={(e)=>handlesend(e)}/> */}
+<SendMessage>
+  <Input type="text" placeholder="Send a message" onKeyPress={handleKeyPress} value={message} onChange={(e)=>handlesend(e)}/>
+  <SendIcon src={Sendicon} alt="Send" onClick={()=>sendchat()}/>
+</SendMessage>
 </Texts>
 </>
 )
@@ -127,20 +155,48 @@ overflow:auto;
 const Texts2=styled.div`
 height:65vh;
 overflow-y: scroll;
+display: flex;
+flex-direction: column-reverse;
+
 &::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 `
-const SendMessage=styled.input`
-width:870px;
-border-radius:30px;
-border:1px solid lightgray;
-margin-bottom:80px;
-height:30px;
-padding:10px;
-padding-left:20px;
-`
+// const SendMessage=styled.input`
+// width:870px;
+// border-radius:30px;
+// border:1px solid lightgray;
+// margin-bottom:80px;
+// height:30px;
+// padding:10px;
+// padding-left:20px;
+
+// `
+
+const SendMessage = styled.div`
+  position: relative;
+  width: 870px;
+  margin-bottom: 80px;
+  margin-top:15px;
+`;
+
+const Input = styled.input`
+  width: 95%;
+  border-radius: 30px;
+  border: 1px solid lightgray;
+  padding: 15px;
+  padding-left: 20px;
+`;
+
+const SendIcon = styled.img`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 35px;
+`;
 const OutText=styled.div`
 display:flex;
 justify-content:flex-end;

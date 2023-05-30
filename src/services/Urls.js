@@ -17,7 +17,8 @@ export const ServiceEnum={
     locationDetails:'user/notify/getLocation',
     livetracker:'tracker',
     conversations:'twilio/fetchAllConversation',
-    chats:'twilio/fetchConversation'
+    chats:'twilio/fetchConversation',
+    sendMessage:'twilio/createConverstaion'
 }
 
 export const urlFor =(services)=>{
