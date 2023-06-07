@@ -55,7 +55,7 @@ let dispatch=useDispatch()
       center: { lat:livelat, lng: livelng},
       zoom: zoom,
       disableDefaultUI: true,
-      styles: mapStyles
+      //styles: mapStyles
     });
     setMap(map);
     dispatch(getLocationDetails(refnumber))
@@ -142,7 +142,7 @@ let dispatch=useDispatch()
                 setDistance(distance)
                 setDuration(duration)
                 console.log("Distance: ", distance);
-                console.log("Duration: ", duration);
+                console.log("Duration: ", result.routes[0].legs[0].duration);
                 directionsRenderer.setDirections(result);
                 setDirections(result);
               } else {

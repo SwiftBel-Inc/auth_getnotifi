@@ -9,7 +9,30 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { renderTop } from "../../services/Urls";
 
 function DetailsPopup(props){
-    const drawerBleeding = 56;
+
+    function convertToMinutes(timeString) {
+        const regex = /(\d+)\s*hours?\s*(\d+)?\s*mins?/;
+        const matches = timeString?.match(regex);
+        if (!matches) {
+          return NaN;
+        }
+        const hours = parseInt(matches[1], 10);
+        const minutes = parseInt(matches[2], 10) || 0;
+        const totalMinutes = hours * 60 + minutes;
+        return totalMinutes;
+      }
+
+      function addMinutesToCurrentTime(minutes) {
+        console.log(minutes,'tot')
+        const currentTime = new Date();
+        currentTime.setMinutes(currentTime.getMinutes() + minutes);
+        const hours = currentTime.getHours();
+        const minutesFormatted = currentTime.getMinutes().toString().padStart(2, '0');
+        const formattedTime = `${hours}:${minutesFormatted}`;
+        return formattedTime;
+      }
+
+    const drawerBleeding = 96;
     const drawerBackdropProps = {
         style: {
           backgroundColor: 'transparent',
@@ -116,10 +139,32 @@ return(
             visibility: 'visible',
             right: 0,
             left: 0,
+            background:'black'
           }}
         >
-          <Puller />
-          <p style={{fontSize:'22px',paddingLeft:'20px',fontWeight:'600'}}>Robert is on the way</p>
+          {/* <Puller/> */}
+          {/* <p style={{fontSize:'22px',paddingLeft:'20px',fontWeight:'600',color:'white'}}>Robert is on the way</p> */}
+          <div style={flexStyle3}>
+          <div style={shortDrawr}>
+            <div style={Elementstyle}>
+            <p style={bigelement}>{addMinutesToCurrentTime(convertToMinutes(props?.duration))}</p>
+            <p style={smallElement}>arrival</p>
+            </div>
+            <div style={Elementstyle}>
+            <p style={bigelement}>{convertToMinutes(props?.duration)}</p>
+            <p style={smallElement}>min</p>
+            </div>
+            <div style={Elementstyle}>
+            <p style={bigelement}>{parseInt(props?.distance)}</p>
+            <p style={smallElement}>km</p>
+            </div>
+          </div>
+          <div >
+<div style={arrowElement}>
+<p style={arrowStyle}>⮝</p>
+</div>
+          </div>
+          </div>
         </StyledBox>
         <StyledBox
           sx={{
@@ -127,111 +172,68 @@ return(
             pb: 2,
             height: '100%',
             overflow:'auto',
+            background:'black',
+            paddingTop:'35px'
           }}
         >
-        <div style={{
-        display:'flex',
-        justifyContent:'space-between',
-        marginTop:'10px'
-        }}>
-        <div style={{display:'flex'}}>
+        <div style={flexStyle2}>
+        <div style={flexStyle}>
         <img src={'https://s3.amazonaws.com/swiftbel.com/truck.png'}
-        style={{
-        marginRight:'15px',
-        height:'40px',
-        width:'40px',
-        marginTop:'40px'
-        }}/>
+        style={ImageStyle2}/>
         <div>
             <p
-            style={{
-            color:'gray',
-            fontSize:'16px'
-            }}>
+            style={subStyle}>
             Starting point
             </p>
             <p
-            style={{
-            fontSize:'16px',
-            marginTop:'-12px',
-            fontWeight:'500',
-            width:'90%',
-            fontWeight:'600'
-            }}>
+            style={destinationStyle}>
             {props.startingpoint}
             </p>
         </div>
         </div>
         <div
-        style={{
-        width:'120px',
-        borderRadius:'15px',
-        padding:'7px',
-        paddingBottom:'0px',
-        textAlign:'center',
-        background:'#ECECEC',
-        cursor:'pointer',
-        height:'40px',
-        marginTop:'40px',
-        marginRight:'10px'
-        }}
+        style={navigateStyle}
         onClick={toggleDrawer(false)}
         >
          Navigate
         </div>
         </div>
 
-        <div style={{display:'flex'}}>
+        <div style={flexStyle}>
         <div class="vertical-hr"></div>
         </div>
 
-        <div style={{
-        display:'flex',
-        justifyContent:'space-between',
-        }}>
-        <div style={{display:'flex'}}>
+        <div style={flexStyle3}>
+        <div style={flexStyle}>
         <img src={'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png'}
-        style={{
-        marginRight:'15px',
-        height:'40px',
-        width:'40px',
-        marginTop:'25px'
-        }}/>
+        style={ImageStyle}/>
         <div>
             <p
-            style={{
-            color:'gray',
-            fontSize:'16px'
-            }}>
+            style={subStyle}>
             Destination
             </p>
             <p
-            style={{
-            fontSize:'16px',
-            marginTop:'-12px',
-            fontWeight:'500',
-            width:'90%',
-            fontWeight:'600'
-            }}>
+            style={destinationStyle}>
             {props.destination}
             </p>
         </div>
         </div>
-        <div
+        {/* <div
         style={{
         textAlign:'center',
         marginTop:'35px',
-        marginRight:'10px'
+        marginRight:'10px',
+        color:'white'
         }}
         >
          {props.duration}
+        </div> */}
         </div>
-        </div>
-        <hr style={{marginTop:'10px',marginBottom:'10px'}}/>
+        {/* <hr style={{marginTop:'10px',marginBottom:'10px'}}/>
         <div style={{display:'flex',justifyContent:'space-between'}}>
-        <p><span style={{color:'gray'}}>Distance :</span> {props?.distance}</p>
-        <p><span style={{color:'gray'}}>Duration :</span> {props?.duration}</p>
-        </div>
+        <p style={{color:'white'}}><span>Distance :</span> {props?.distance}</p>
+        <p style={{color:'white'}}><span >Duration :</span> {props?.duration}</p>
+        </div> */}
         </StyledBox>
       </SwipeableDrawer>
     </Root>
@@ -242,3 +244,106 @@ return(
 
 export default DetailsPopup
 
+const destinationStyle={
+    fontSize:'16px',
+    marginTop:'-12px',
+    fontWeight:'500',
+    width:'90%',
+    fontWeight:'600',
+    color:'white'
+}
+
+const subStyle={
+    color:'white',
+    fontSize:'16px'
+}
+
+const ImageStyle={
+    marginRight:'15px',
+    height:'40px',
+    width:'40px',
+    marginTop:'25px',
+    background:'white',
+    borderRadius:'50%',
+    width:'40px',
+    height:'40px',
+    padding:'5px',
+    paddingTop:'5px'
+}
+
+ const ImageStyle2={
+    marginRight:'15px',
+    height:'40px',
+    width:'40px',
+    marginTop:'40px'
+ }
+
+const flexStyle={
+    display:'flex'
+}
+
+const navigateStyle={
+    width:'120px',
+    borderRadius:'15px',
+    padding:'7px',
+    paddingBottom:'0px',
+    textAlign:'center',
+    background:'#ECECEC',
+    cursor:'pointer',
+    height:'40px',
+    marginTop:'40px',
+    marginRight:'10px'
+}
+
+const flexStyle2={
+    display:'flex',
+    justifyContent:'space-between',
+    marginTop:'10px'
+}
+
+const flexStyle3={
+    display:'flex',
+    justifyContent:'space-between',
+}
+
+const shortDrawr={
+    display:'flex',
+    justifyContent:'start',
+    color:'white',
+    marginBottom:'0px',
+    paddingLeft:'30px',
+    paddingRight:'30px',
+    marginTop:'-8px'
+}
+
+const Elementstyle={
+    textAlign:'start',
+    marginRight:'40px'
+}
+
+const bigelement={
+    fontSize:'24px',
+    fontWeight:'500'
+}
+
+const smallElement={
+    marginTop:'-25px',
+    color:'whitesmoke',
+    fontSize:'18px'
+}
+
+const arrowElement={
+    height:'40px',
+    width:'40px',
+    borderRadius:'50%',
+    background:'gray',
+    color:'white',
+    textAlign:'center',
+    marginRight:'25px',
+    marginTop:'30px'
+}
+
+const arrowStyle={
+fontSize:'20px',
+paddingTop:'5px'
+}

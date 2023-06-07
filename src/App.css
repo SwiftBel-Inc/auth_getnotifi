@@ -1,5 +1,5 @@
 @font-face {
-  font-family: Inter;
+  font-family: 'Inter';
   src: url(../src/assets/fonts/Inter-Regular.ttf);
 }
 .App {
@@ -97,7 +97,7 @@ color: red;
       justify-content: center;
       margin: 0 1em;
       border: none;
-      border-right: 1px solid black;
+      border-right: 1px solid white;
       height: 30px;
       position: relative;
     }

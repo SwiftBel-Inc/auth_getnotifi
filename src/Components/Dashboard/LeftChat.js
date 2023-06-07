@@ -4,13 +4,14 @@ import TextField from '@mui/material/TextField';
 import profile from '../../assets/profile.png'
 import { getAllconversations, getcolor, getname, getnumber } from '../../store/Actions/Auth.action'
 import { useDispatch, useSelector } from 'react-redux'
+import { fromnumber } from '../../services/Urls';
 
 function LeftChat(){
     let dispatch = useDispatch();
     const detail = useSelector(state => state?.auth?.convo)
     console.log(detail,'conversations')
     useEffect(() => {
-        dispatch(getAllconversations('18676709314'));
+        dispatch(getAllconversations(fromnumber));
       },[]);
 const handledate=(x)=>{
     const date = new Date(x);
@@ -28,6 +29,8 @@ await dispatch(getnumber(num))
 await dispatch(getcolor(color))
 await dispatch(getname(name))
 }
+
+
 return(
 <Main>
 <Heading>Notifi Chat</Heading>

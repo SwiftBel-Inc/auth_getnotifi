@@ -26,11 +26,12 @@ display:flex;
 justify-content:center;
 padding-bottom:70px;
 margin-bottom:50px;
-overflow:hidden;
+overflow-y:hidden;
 `
 const Head=styled.div`
 width:1312px;
 display:flex;
+overflow-y:hidden;
 @media (min-width: 260px) and (max-width: 1311px){
 width:100%;
 padding-left:30px;

@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import {getAllinchats, getAlloutchats, sendMessage } from '../../store/Actions/Auth.action'
 import profile from '../../assets/profile.png'
 import Sendicon from '../../../src/assets/send.png'
+import { fromnumber } from '../../services/Urls';
 const socket = io('https://prod.swiftbel.com');
 
 function RightChat(){
@@ -12,27 +13,36 @@ function RightChat(){
     const globecolor = useSelector(state => state?.auth?.globecolor)
     const globename = useSelector(state => state?.auth?.globename)
 const [message,setMessage]=useState(null)
+const [body,setBody]=useState(null)
+const [num,setNum]=useState(null)
+const [details,setDetails]=useState(null)
+const detail = useSelector(state => state?.auth?.convo)
+const firstnumber = detail ? detail?.[0]?.name ? detail?.[0]?.name : detail?.[0]?.to :''
+const frstnum = detail ? detail?.[0]?.to :''
+console.log(frstnum,'frstnum')
     let dispatch=useDispatch()
     useEffect(()=>{
-        dispatch(getAllinchats('+16042435773','+917060208598'));
-        dispatch(getAlloutchats('+917060208598','+16042435773'));
+        dispatch(getAllinchats(fromnumber,globenumber?globenumber:frstnum));
+        dispatch(getAlloutchats(globenumber?globenumber:frstnum,fromnumber));
 
-    },[globenumber])
+    },[globenumber,frstnum])
     const outchats = useSelector(state => state?.auth?.outchats)
     const inchats = useSelector(state => state?.auth?.inchats)
 
-    const detail = useSelector(state => state?.auth?.convo)
-     const firstnumber = detail ? detail?.[0]?.name ? detail?.[0]?.name : detail?.[0]?.to :''
+
+
      useEffect(() => {
         socket.connect()
         // socket.emit('join_room','hello worldddd')
-        socket.on('join_room', (msg) => {
+        socket.on('conversation', (msg) => {
         console.log(msg, "msg")
+        setBody(msg?.[1])
+        setNum(msg?.[0].from)
         socket.close()
         socket.connect()
       })
        return () => {
-          socket.off('join_room');
+          socket.off('conversation');
         };
       }, []);
      const handledate=(item)=>{
@@ -47,28 +57,28 @@ const [message,setMessage]=useState(null)
        let customminutes=minutes<10 ?'0'+minutes:minutes
        const meridiem = hours < 12 ? "AM" : "PM";
        const formattedTime = `${hours12}:${customminutes} ${meridiem}`;
-       console.log(formattedTime,'time');
        return formattedTime
      }
 
 
-console.log(outchats,'outchats')
-console.log(inchats,'inchats')
 
 const handlesend=(e)=>{
-console.log(e.target.value,'message')
 setMessage(e.target.value)
 }
-const sendchat=()=>{
+const sendchat=async()=>{
 if(message){
- dispatch(sendMessage(
+  dispatch(sendMessage(
     {
-        "from": '+16042435773',
+        "from": fromnumber,
         "to": globenumber,
         "body": message
-      }
+    }
 ))
- setMessage('')
+setMessage('')
+setTimeout(() => {
+     dispatch(getAllinchats(fromnumber,globenumber));
+    dispatch(getAlloutchats(globenumber,fromnumber));
+}, 1000);
     }
 }
 
@@ -77,13 +87,21 @@ const handleKeyPress = (event) => {
         sendchat();
     }
   };
-console.log(message,'meesage')
 const combinedArray = outchats&&inchats ? outchats?.concat(inchats):''
 let alldata= combinedArray?combinedArray?.sort((a, b) => {
   return  new Date(b.createdAt) - new Date(a.createdAt);
 })
 :''
-console.log(alldata,'combines');
+useEffect(()=>{
+if(body){
+if(globenumber===num){
+combinedArray.push(body)
+}
+}
+},[num,body,globenumber])
+// let finaldata=body?globenumber===num?alldata.push(body):alldata:alldata
+// console.log(finaldata,'alldata')
+
 return(
 <>
 <Header>
@@ -98,7 +116,7 @@ return(
 x?.type==='outbound-api'?
 <OutText>
 <OutChat>
-{x?.body}
+<Messagetext>{x?.body}</Messagetext>
 <p className='outtime'>{handledate(x.createdAt)}</p>
 </OutChat>
 <OutProfile>
@@ -109,7 +127,7 @@ SB
 <InText>
 <ProfileImage src={profile} alt='profileimg' className={globecolor}/>
 <InChat>
-{x?.body}
+<Messagetext>{x?.body}</Messagetext>
 <p className='intime'>{handledate(x.createdAt)}</p>
 </InChat>
 </InText>
@@ -214,6 +232,9 @@ width:250px;
 font-size:12px;
 padding:0px;
 }
+`
+const Messagetext=styled.p`
+width:250px;
 `
 const InChat=styled.div`
 background:lightgray;
