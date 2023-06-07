@@ -242,10 +242,10 @@ padding-left:10px;
 `
 const Image=styled.img`
 height: 50px;
-  width: 130%;
   padding-top: 10px;
   padding-bottom:10px;
   cursor: pointer;
   object-fit: contain;
+  margin-left:10px;
 
 `
