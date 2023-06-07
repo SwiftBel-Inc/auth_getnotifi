@@ -160,9 +160,6 @@ let dispatch=useDispatch()
   let navigate = useNavigate()
   return (
   <div style={{overflow:'hidden'}}>
-  {/* <h1
-  //onClick={()=>sendMessage()}
-  >hey</h1> */}
   <MobHead>
 <div>
 <Image src={logo} alt='logo' onClick={()=>navigate('/')}/>

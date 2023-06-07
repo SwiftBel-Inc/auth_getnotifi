@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { renderTop } from "../../services/Urls";
-
+import Up from '../../assets/up.png'
 function DetailsPopup(props){
 
     function convertToMinutes(timeString) {
@@ -161,7 +161,7 @@ return(
           </div>
           <div >
 <div style={arrowElement}>
-<p style={arrowStyle}>⮝</p>
+<img src={Up} style={arrowStyle}></img>
 </div>
           </div>
           </div>
@@ -340,10 +340,12 @@ const arrowElement={
     color:'white',
     textAlign:'center',
     marginRight:'25px',
-    marginTop:'30px'
+    marginTop:'30px',
+    paddingTop:'10px'
 }
 
 const arrowStyle={
-fontSize:'20px',
-paddingTop:'5px'
+height:'50%',
+width:'30%',
+transform: 'rotate(-90deg)'
 }
