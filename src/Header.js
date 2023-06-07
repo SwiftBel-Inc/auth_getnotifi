@@ -218,9 +218,9 @@ object-fit: contain;
 //     display:none;
 //     }
 // `
-const Dummy = styled.div`
-display:flex;
-@media (min-width: 890px) and (max-width: 9999px){
-    display:none;
-    }
-`
+// const Dummy = styled.div`
+// display:flex;
+// @media (min-width: 890px) and (max-width: 9999px){
+//     display:none;
+//     }
+// `

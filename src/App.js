@@ -9,7 +9,7 @@ const Builder =lazy(()=>import('./Pages/Builder'))
 const SignUpPage =lazy(()=>import('./Pages/SignUpPage'));
 const Tracking =lazy(()=>import('./Pages/Tracking'));
 const Dashboard =lazy(()=>import('./Pages/Dashboard'));
- const Header =lazy(()=>import("./Header"));
+//  const Header =lazy(()=>import("./Header"));
 // const Footer =lazy(()=>import("./Footer"));
 // const FooterBottom =lazy(()=>import("./FooterBottom"));
 const Login =lazy(()=>import("./Pages/Login"));
@@ -23,8 +23,8 @@ function App() {
               <Suspense fallback={loading()}
       >
         <BrowserRouter>
-       {window.location.pathname==='/login'||window.location.pathname==='/'?
-       '':<Header/>}
+       {/* {window.location.pathname==='/login'||window.location.pathname==='/'?
+       '':<Header/>} */}
       <Routes>
         <Route path="/blog" element={<Builder/>} />
         <Route element={<ProtectedRoute/>}>

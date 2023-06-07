@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 import styled from 'styled-components';
 import { getLocationDetails
@@ -7,7 +7,8 @@ import { getLocationDetails
 } from '../../store/Actions/Auth.action';
 import { useDispatch, useSelector } from 'react-redux';
 import DetailsPopup from './DetailsPopup';
-import mapStyles from './mapStyles';
+//import mapStyles from './mapStyles';
+import logo from '../../assets/notifilogo.png';
 
 const socket = io('https://prod.swiftbel.com');
 
@@ -156,11 +157,17 @@ let dispatch=useDispatch()
   }, [map,setDirections,coords,destlat,destlng,Locationdetails,livelat,livelng]);
 
   console.log(Math.ceil(window.innerHeight/10)+20,'height')
+  let navigate = useNavigate()
   return (
   <div style={{overflow:'hidden'}}>
   {/* <h1
   //onClick={()=>sendMessage()}
   >hey</h1> */}
+  <MobHead>
+<div>
+<Image src={logo} alt='logo' onClick={()=>navigate('/')}/>
+</div>
+</MobHead>
     <Segment>
      <Details2></Details2>
     <Details>
@@ -222,3 +229,23 @@ display:none;
 // }
 // `;
 
+const MobHead=styled.div`
+width:100%;
+display:flex;
+justify-content:start;
+padding-top:20px;
+padding-bottom:10px;
+padding-left:10px;
+@media (min-width: 890px) and (max-width: 9999px){
+  display:none;
+  }
+`
+const Image=styled.img`
+height: 50px;
+  width: 130%;
+  padding-top: 10px;
+  padding-bottom:10px;
+  cursor: pointer;
+  object-fit: contain;
+
+`
