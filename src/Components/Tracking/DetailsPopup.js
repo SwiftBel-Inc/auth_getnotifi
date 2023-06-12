@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -148,15 +148,15 @@ return(
           <div style={shortDrawr}>
             <div style={Elementstyle}>
             <p style={bigelement}>{addMinutesToCurrentTime(convertToMinutes(props?.duration))}</p>
-            <p style={smallElement}>arrival</p>
+            <p style={smallElement}>Arrival</p>
             </div>
             <div style={Elementstyle}>
             <p style={bigelement}>{convertToMinutes(props?.duration)}</p>
-            <p style={smallElement}>min</p>
+            <p style={smallElement}>Min</p>
             </div>
             <div style={Elementstyle}>
             <p style={bigelement}>{parseInt(props?.distance)}</p>
-            <p style={smallElement}>km</p>
+            <p style={smallElement}>Km</p>
             </div>
           </div>
           <div >
