@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -49,42 +49,42 @@ function DetailsPopup(props){
     backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
   }));
 
-  const Puller = styled(Box)(({ theme }) => ({
-    width: 30,
-    height: 6,
-    backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
-    borderRadius: 3,
-    position: 'absolute',
-    top: 8,
-    left: 'calc(50% - 15px)',
-  }));
+  // const Puller = styled(Box)(({ theme }) => ({
+  //   width: 30,
+  //   height: 6,
+  //   backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
+  //   borderRadius: 3,
+  //   position: 'absolute',
+  //   top: 8,
+  //   left: 'calc(50% - 15px)',
+  // }));
 
 
     const { window } = props;
     const [open, setOpen] = React.useState(false);
-const headings=[
-{
-head:'Starting point',
-tail:props?.startingpoint
-},
-{
-head:'Distance',
-tail:props?.distance
-},
-{
-head:'Destination',
-tail:props?.destination
-},
+// const headings=[
+// {
+// head:'Starting point',
+// tail:props?.startingpoint
+// },
 // {
 // head:'Distance',
 // tail:props?.distance
 // },
-
 // {
-// head:'Duration',
-// tail:props?.duration
+// head:'Destination',
+// tail:props?.destination
 // },
-]
+// // {
+// // head:'Distance',
+// // tail:props?.distance
+// // },
+
+// // {
+// // head:'Duration',
+// // tail:props?.duration
+// // },
+// ]
 
     const toggleDrawer = (newOpen) => () => {
       setOpen(newOpen);
@@ -161,7 +161,7 @@ return(
           </div>
           <div >
 <div style={arrowElement}>
-<img src={Up} style={arrowStyle}></img>
+<img src={Up} style={arrowStyle} alt='up'></img>
 </div>
           </div>
           </div>
@@ -178,7 +178,7 @@ return(
         >
         <div style={flexStyle2}>
         <div style={flexStyle}>
-        <img src={'https://s3.amazonaws.com/swiftbel.com/truck.png'}
+        <img src={'https://s3.amazonaws.com/swiftbel.com/truck.png'} alt='marker'
         style={ImageStyle2}/>
         <div>
             <p
@@ -206,7 +206,7 @@ return(
         <div style={flexStyle3}>
         <div style={flexStyle}>
         <img src={'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png'}
-        style={ImageStyle}/>
+        style={ImageStyle} alt='marker'/>
         <div>
             <p
             style={subStyle}>
@@ -249,7 +249,6 @@ const destinationStyle={
     marginTop:'-12px',
     fontWeight:'500',
     width:'90%',
-    fontWeight:'600',
     color:'white'
 }
 
@@ -265,8 +264,6 @@ const ImageStyle={
     marginTop:'25px',
     background:'white',
     borderRadius:'50%',
-    width:'40px',
-    height:'40px',
     padding:'5px',
     paddingTop:'5px'
 }
