@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components';
 import sublogo from '../../assets/sublogo.png'
 import { useLocation, useNavigate } from 'react-router-dom';
+import Home from '../../assets/home.png'
 function DashboardHeader(){
 const location = useLocation();
 const { pathname } = location;
@@ -9,7 +10,11 @@ let navigate=useNavigate()
 return(
 <Main>
  <SubDiv>
-<Sublogo src={sublogo} alt='logo'/>
+{/* <Sublogo src={sublogo} alt='logo'/> */}
+<IconWrapper>
+      <Sublogo src={sublogo} alt="Icon 1" />
+      <HoverIcon src={Home} alt="Icon 2" />
+    </IconWrapper>
 <Element highlight={pathname === '/inbox'} onClick={()=>navigate('/inbox')}>Inbox</Element>
 <Element highlight={pathname === '/contacts'}onClick={()=>navigate('/contacts')}>Contacts</Element>
 <Element highlight={pathname === '/reviews'}onClick={()=>navigate('/reviews')}>Reviews</Element>
@@ -37,13 +42,7 @@ position: fixed;
 const SubDiv=styled.div`
 display:flex;
 `
-const Sublogo=styled.img`
-height:25px;
-width:25px;
-background:white;
-padding:3px;
-margin-top:12px;
-`
+
 const Element = styled.div`
   margin-left: 28px;
   font-weight: 600;
@@ -77,3 +76,31 @@ const Element = styled.div`
   }
 `;
 
+const IconWrapper = styled.div`
+  display: inline-block;
+`;
+
+
+const Sublogo=styled.img`
+height:25px;
+width:25px;
+background:white;
+padding:3px;
+margin-top:12px;
+transition: opacity 0.3s ease-in-out;
+${IconWrapper}:hover & {
+    opacity: 0;
+  }
+`
+const HoverIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  opacity: 0;
+  margin-left:-30px;
+  margin-bottom:5px;
+  transition: opacity 0.3s ease-in-out;
+
+  ${IconWrapper}:hover & {
+    opacity: 1;
+  }
+`;
