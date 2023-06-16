@@ -78,29 +78,36 @@ const Element = styled.div`
 
 const IconWrapper = styled.div`
   display: inline-block;
+  position: relative;
+  width: 24px;
+  height: 24px;
 `;
 
-
 const Sublogo=styled.img`
-height:25px;
-width:25px;
 background:white;
 padding:3px;
 margin-top:12px;
-transition: opacity 0.3s ease-in-out;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+transition: transform 0.3s ease, opacity 0.3s ease;
 ${IconWrapper}:hover & {
-    opacity: 0;
-  }
+  transform: rotate(180deg);
+  opacity: 0;
+}
 `
 const HoverIcon = styled.img`
-  width: 24px;
-  height: 24px;
+position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  margin-left:-30px;
-  margin-bottom:5px;
-  transition: opacity 0.3s ease-in-out;
-
+  margin-top:15px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   ${IconWrapper}:hover & {
+    transform: rotate(0);
     opacity: 1;
   }
-`;
+`

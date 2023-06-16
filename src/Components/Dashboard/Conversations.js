@@ -24,13 +24,10 @@ return(
 </Flexbox>
 <Hr/>
 <Chats>
-<div style={{display:'flex'}}>
-<div style={{background:'rgb(70, 110, 255)',
-color:'white',padding:'5px',paddingLeft:'10px',
-paddingRight:'10px',borderRadius:'6px',
-fontSize:'13px',fontWeight:'600',marginRight:'10px'}}>
+<Flexbox>
+<GoogleBox>
 <span>Google</span>
-</div>
+</GoogleBox>
 <Name2>{globename}</Name2>
 <Flexdiv>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
@@ -39,7 +36,7 @@ fontSize:'13px',fontWeight:'600',marginRight:'10px'}}>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 </Flexdiv>
-</div>
+</Flexbox>
 <Message>We had a wonderful experience with Swiftbel ! The movers were organized and quick,
     and had us moved in and out in no time.
     The process was seamless and efficient and we will definitely
@@ -111,14 +108,15 @@ margin-top:-3px;
 `
 const LocateGps=styled.div`
 display:flex;
-padding-top:14px;
+padding-top:10px;
 padding-left:8px;
 padding-right:8px;
 border-radius:8px;
+margin-bottom:6px;
 font-size:14px;
 font-weight:600;
 cursor:pointer;
-margin-top:-7px;
+margin-top:-3px;
 &:hover {
     background-color:#F3F3F3;
   }
@@ -146,4 +144,15 @@ const Message=styled.p`
 text-align:start;
 width:90%;
 line-height:160%;
+`
+const GoogleBox=styled.div`
+background:rgb(70, 110, 255);
+color:white;
+padding:5px;
+padding-left:10px;
+padding-right:10px;
+border-radius:6px;
+font-size:13px;
+font-weight:600;
+margin-right:10px;
 `
