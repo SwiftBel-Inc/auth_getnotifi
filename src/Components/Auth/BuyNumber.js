@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { displaynumber,buynumber } from '../../store/Actions/Auth.action';
 import { InputLabel, MenuItem, Select } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function BuyNumber(){
 let dispatch=useDispatch()
@@ -55,7 +55,10 @@ return res
 const handleNumber=(e)=>{
 setMobnumber(e.target.value)
 }
+let location = useLocation()
 let navigate=useNavigate()
+const { id,id2 } = useParams()
+console.log(id,id2,'dif')
 const handlesubmit2=async()=>{
     setErrormsg(null)
     let email=localStorage.getItem('email')
@@ -69,7 +72,10 @@ const handlesubmit2=async()=>{
         }
         if(res?.status===true){
         setData(res?.data)
-         navigate('/dashboard')
+        if(location.pathname==='/'||id==='0'||id2==='free'){
+         navigate('/dashboard/inbox')
+        }
+        else navigate(`/payment/${id}/${id2}`)
         }
      return res
     }

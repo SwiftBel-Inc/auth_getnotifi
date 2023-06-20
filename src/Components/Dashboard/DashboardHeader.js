@@ -15,9 +15,9 @@ return(
       <Sublogo src={sublogo} alt="Icon 1" />
       <HoverIcon src={Home} alt="Icon 2" />
     </IconWrapper>
-<Element highlight={pathname === '/inbox'} onClick={()=>navigate('/inbox')}>Inbox</Element>
-<Element highlight={pathname === '/contacts'}onClick={()=>navigate('/contacts')}>Contacts</Element>
-<Element highlight={pathname === '/reviews'}onClick={()=>navigate('/reviews')}>Reviews</Element>
+<Element highlight={pathname === '/dashboard/inbox'} onClick={()=>navigate('/dashboard/inbox')}>Inbox</Element>
+<Element highlight={pathname === '/dashboard/contacts'}onClick={()=>navigate('/dashboard/contacts')}>Contacts</Element>
+<Element highlight={pathname === '/dashboard/reviews'}onClick={()=>navigate('/dashboard/reviews')}>Reviews</Element>
  </SubDiv>
 </Main>
 )
@@ -56,6 +56,7 @@ const Element = styled.div`
   padding-right:10px;
   border-radius:8px;
   margin-bottom:8px;
+  color:gray;
   ${(props) =>
     props.highlight &&
     css`
@@ -70,6 +71,7 @@ const Element = styled.div`
         transition: opacity 0.3s ease;
         margin-bottom: -8px;
       }
+      color:white;
     `}
   &:hover {
     background-color: rgba(255, 255, 255, 0.08);

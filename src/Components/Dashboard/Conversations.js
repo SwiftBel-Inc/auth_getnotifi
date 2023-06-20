@@ -41,6 +41,13 @@ return(
     and had us moved in and out in no time.
     The process was seamless and efficient and we will definitely
     use their services again in the future.</Message>
+<p style={{color:'rgb(204, 204, 204)',fontWeight:'600',textAlign:'start',display:'flex'}}>June 7 , 23 |
+{/* <img style ={{height:'20px',width:'20px'}}src='https://cdn3.iconfinder.com/data/icons/flat-pro-basic-set-1-1/32/location-gray-512.png'/> */}
+<div style={{marginTop:'-2px'}}><svg height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" fill="rgb(204, 204, 204)" />
+    </svg>
+    </div>
+    &nbsp;Accounting Bridge</p>
 </Chats>
 </Main>
 )

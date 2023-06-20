@@ -3,22 +3,23 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from '../Components/Payment/CheckoutForm';
 import styled from '@emotion/styled';
+import { useParams } from 'react-router-dom';
   const stripePromise = loadStripe('pk_live_51KnIv3IP0V9hIrNScYkpMaRMBSzGwDekxHvEgBoXBo2iTlzOQ13rL927tddCs5JcnWMfVJeC6JJxRcrNtdKz70wY00DcDIUxhf');
  //const stripePromise = loadStripe('pk_test_51KnIv3IP0V9hIrNSw4VA2vFo9XGgmyt5TJzczscmtofOWavGCuogRSjSavFrBi8QWtE9H5BfXHNznbABpet5hvTv00tvzkvYlF');
 
 const Payment = () => {
-let subtype= localStorage.getItem('type')
-let price= localStorage.getItem('price')
-
+// let subtype= localStorage.getItem('type')
+// let price= localStorage.getItem('price')
+let {id,id2}=useParams()
   return (
     <Main>
     <Left>
     <PriceSection>
     <p>Pay Notifi </p>
-    <MainPrice>US ${price}</MainPrice>
+    <MainPrice>US ${id}</MainPrice>
     <Subsection>
     <p>Subscription type</p>
-    <p>{subtype}</p>
+    <p>{id2}</p>
     </Subsection>
     <Subsection>
     <p>Package</p>
@@ -27,7 +28,7 @@ let price= localStorage.getItem('price')
     <hr/>
     <Subsection>
     <p>Total amount due </p>
-    <p>${price}</p>
+    <p>${id}</p>
     </Subsection>
     </PriceSection>
     </Left>
