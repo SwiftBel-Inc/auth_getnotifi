@@ -20,6 +20,7 @@ function TrackingMap() {
   const [zoom, setZoom] = useState(10);
   const [placename2, setPlaceName2] = useState(null);
   const [distance, setDistance] = useState(null);
+  const [duration2, setDuration2] = useState(null);
   const [duration, setDuration] = useState(null);
   let location=useLocation()
   console.log(location.pathname.split('/'))
@@ -93,21 +94,23 @@ let dispatch=useDispatch()
         position: { lat: livelat, lng: livelng },
         map: map,
         icon: {
-          url: 'https://s3.amazonaws.com/swiftbel.com/truck.png',
+          // url: 'https://s3.amazonaws.com/swiftbel.com/truck.png',
           size: new window.google.maps.Size(32, 32),
           origin: new window.google.maps.Point(0, 0),
-          anchor: new window.google.maps.Point(16, 32),
+          anchor: new window.google.maps.Point(100, 100),
         },
+        label:'A'
       });
        new window.google.maps.Marker({
         position: { lat: destlat, lng: destlng },
         map: map,
         icon: {
-          url: 'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png',
+          // url: 'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png',
           size: new window.google.maps.Size(32, 32),
           origin: new window.google.maps.Point(0, 0),
-          anchor: new window.google.maps.Point(16, 32),
+          anchor: new window.google.maps.Point(100,100),
         },
+        label:'B'
       });
       //setMarkers([markerA, markerB]);
   console.log(livelat,livelng,destlat,destlng)
@@ -141,6 +144,7 @@ let dispatch=useDispatch()
                 const distance = result.routes[0].legs[0].distance.text;
                 const duration = result.routes[0].legs[0].duration.text;
                 setDistance(distance)
+                setDuration2(result.routes[0].legs[0].duration.value)
                 setDuration(duration)
                 console.log("Distance: ", distance);
                 console.log("Duration: ", result.routes[0].legs[0].duration);
@@ -177,7 +181,7 @@ let dispatch=useDispatch()
     </Segment>
   <div id="map" style={{ height: `${Math.ceil(window.innerHeight/10)+3}vh`,overflow:'hidden'}} />
   {window.innerWidth<800?
-    <DetailsPopup startingpoint={placename2} destination={Locationdetails?Locationdetails:'N/A'} distance={distance} duration={duration}/>
+    <DetailsPopup startingpoint={placename2} destination={Locationdetails?Locationdetails:'N/A'} distance={distance} duration={duration2}/>
     :''}
   </div>
   )

@@ -8,6 +8,7 @@ import countryList from 'react-select-country-list'
 import { Select } from "@mui/material";
 import { getpaymentIntent } from "../../store/Actions/Auth.action";
 import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
   function CheckoutForm() {
     const [name, setName] = useState("");
@@ -18,6 +19,9 @@ import { useDispatch } from "react-redux";
     const elements = useElements();
     const options = useMemo(() => countryList().getData(), [])
     let dispatch=useDispatch()
+    let params=useParams()
+    let navigate=useNavigate()
+    let {id}=params
     const createSubscription = async () => {
         try {
             const paymentMethod = await stripe.createPaymentMethod({
@@ -36,15 +40,18 @@ import { useDispatch } from "react-redux";
                 "name":name,
                 "email":email,
                 "paymentMethod":paymentMethod.paymentMethod.id,
-                //"amount":0,
+                "amount":id,
                 "priceId":"price_1MwV53IP0V9hIrNSBGDihUDf"
             }))
-            console.log(paymentMethod.paymentMethod.id,'idc')
-            if (!response.ok) return alert("Payment unsuccessful!");
-            const data = await response.json();
-            const confirm = await stripe.confirmCardPayment(data.clientSecret);
-            if (confirm.error) return alert("Payment unsuccessful!");
+            console.log(response,'idc')
+            if (!response.status)
+            {return alert("Payment unsuccessful!");}
+            else{
+            // const confirm = await stripe.confirmCardPayment(data.clientSecret);
+            // if (confirm.error) return alert("Payment unsuccessful!");
             alert("Payment Successful! Subscription active.");
+            navigate('/dashboard/inbox')
+            }
          }
         catch (err) {
             console.error(err);

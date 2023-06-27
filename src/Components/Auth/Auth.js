@@ -35,7 +35,7 @@ let navigate = useNavigate();
         "password":password
         }))
         if(res?.status===true){
-            navigate('/inbox')
+            navigate('/dashboard/inbox')
             }
         if(res?.status===false){
         setErrormsg(res?.meesage)

@@ -11,15 +11,8 @@ import Up from '../../assets/up.png'
 function DetailsPopup(props){
 
     function convertToMinutes(timeString) {
-        const regex = /(\d+)\s*hours?\s*(\d+)?\s*mins?/;
-        const matches = timeString?.match(regex);
-        if (!matches) {
-          return NaN;
-        }
-        const hours = parseInt(matches[1], 10);
-        const minutes = parseInt(matches[2], 10) || 0;
-        const totalMinutes = hours * 60 + minutes;
-        return totalMinutes;
+        let time = Math.floor(timeString/60)
+       return time
       }
 
       function addMinutesToCurrentTime(minutes) {
@@ -28,7 +21,7 @@ function DetailsPopup(props){
         currentTime.setMinutes(currentTime.getMinutes() + minutes);
         const hours = currentTime.getHours();
         const minutesFormatted = currentTime.getMinutes().toString().padStart(2, '0');
-        const formattedTime = `${hours}:${minutesFormatted}`;
+        const formattedTime = `${hours?hours:'0'}:${minutesFormatted?minutesFormatted:0}`;
         return formattedTime;
       }
 
@@ -107,14 +100,11 @@ return(
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
-            height: `calc(50% - ${drawerBleeding}px)`,
+            height: `calc(75% - ${drawerBleeding}px)`,
             overflow: 'visible',
           },
         }}
       />
-      <Box sx={{ textAlign: 'center', pt: 1 }}>
-        <Button onClick={toggleDrawer(true)}>Open</Button>
-      </Box>
       <SwipeableDrawer
         container={container}
         anchor="bottom"
@@ -159,7 +149,7 @@ return(
             <p style={smallElement}>Km</p>
             </div>
           </div>
-          <div >
+          <div>
 <div style={arrowElement}>
 <img src={Up} style={arrowStyle} alt='up'></img>
 </div>
@@ -173,13 +163,14 @@ return(
             height: '100%',
             overflow:'auto',
             background:'black',
-            paddingTop:'35px'
+            paddingTop:'10px'
           }}
         >
         <div style={flexStyle2}>
         <div style={flexStyle}>
-        <img src={'https://s3.amazonaws.com/swiftbel.com/truck.png'} alt='marker'
-        style={ImageStyle2}/>
+        {/* <img src={'https://s3.amazonaws.com/swiftbel.com/truck.png'} alt='marker'
+        style={ImageStyle2}/> */}
+         <p style={{color:'white',fontWeight:'600',marginRight:'25px',marginLeft:'12px',fontSize:'22px',paddingTop:'24px'}}>A</p>
         <div>
             <p
             style={subStyle}>
@@ -205,8 +196,9 @@ return(
 
         <div style={flexStyle3}>
         <div style={flexStyle}>
-        <img src={'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png'}
-        style={ImageStyle} alt='marker'/>
+        {/* <img src={'https://s3.amazonaws.com/swiftbel.com/home-address+(1).png'}
+        style={ImageStyle} alt='marker'/> */}
+        <p style={{color:'white',fontWeight:'600',marginRight:'25px',marginLeft:'12px',fontSize:'22px',paddingTop:'3px'}}>B</p>
         <div>
             <p
             style={subStyle}>
@@ -257,23 +249,23 @@ const subStyle={
     fontSize:'16px'
 }
 
-const ImageStyle={
-    marginRight:'15px',
-    height:'40px',
-    width:'40px',
-    marginTop:'25px',
-    background:'white',
-    borderRadius:'50%',
-    padding:'5px',
-    paddingTop:'5px'
-}
+// const ImageStyle={
+//     marginRight:'15px',
+//     height:'40px',
+//     width:'40px',
+//     marginTop:'25px',
+//     background:'white',
+//     borderRadius:'50%',
+//     padding:'5px',
+//     paddingTop:'5px'
+// }
 
- const ImageStyle2={
-    marginRight:'15px',
-    height:'40px',
-    width:'40px',
-    marginTop:'40px'
- }
+//  const ImageStyle2={
+//     marginRight:'15px',
+//     height:'40px',
+//     width:'40px',
+//     marginTop:'40px'
+//  }
 
 const flexStyle={
     display:'flex'
@@ -315,7 +307,7 @@ const shortDrawr={
 
 const Elementstyle={
     textAlign:'start',
-    marginRight:'40px'
+    marginRight:'33px'
 }
 
 const bigelement={

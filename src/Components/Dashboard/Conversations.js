@@ -7,11 +7,12 @@ function Conversations(){
 
 return(
 <Main>
+<div>
 <Flexbox>
 <Profile>
 <span>P</span>
 </Profile>
-<Name>{globename}</Name>
+<Name>{globename||'Prakash Chanchal'}</Name>
 <Line1>|</Line1>
 <div>
 <ReviewStar src='https://app.podium.com/static/media/review.9e8d7fce974894c5320fbeb93e8d4acb.svg' alt='review'/>
@@ -41,14 +42,22 @@ return(
     and had us moved in and out in no time.
     The process was seamless and efficient and we will definitely
     use their services again in the future.</Message>
-<p style={{color:'rgb(204, 204, 204)',fontWeight:'600',textAlign:'start',display:'flex'}}>June 7 , 23 |
-{/* <img style ={{height:'20px',width:'20px'}}src='https://cdn3.iconfinder.com/data/icons/flat-pro-basic-set-1-1/32/location-gray-512.png'/> */}
-<div style={{marginTop:'-2px'}}><svg height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" fill="rgb(204, 204, 204)" />
+<SubText>June 7 , 23 |
+&nbsp;<GpsIcon><svg height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" fill="#d2d2d2" />
     </svg>
-    </div>
-    &nbsp;Accounting Bridge</p>
+    </GpsIcon>
+    &nbsp;Accounting Bridge</SubText>
 </Chats>
+</div>
+{/* <InputBox type='text' placeholder='Responding publicly as Accounting Bridge'/> */}
+<InputContainer>
+        <InputBox type='text' placeholder='Responding publicly as Accounting Bridge' />
+        <ButtonContainer>
+          <Button1>Post & Close</Button1>
+          <Button2>Post</Button2>
+        </ButtonContainer>
+      </InputContainer>
 </Main>
 )
 }
@@ -61,6 +70,9 @@ margin-top:48px;
 padding-top:10px;
 padding-bottom:10px;
 height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 const Name=styled.p`
 text-align:start;
@@ -162,4 +174,55 @@ border-radius:6px;
 font-size:13px;
 font-weight:600;
 margin-right:10px;
+`
+const SubText=styled.p`
+color:#d2d2d2;
+font-weight:600;
+text-align:start;
+display:flex;
+`
+const GpsIcon=styled.div`
+margin-top:-2px;
+`
+const InputBox=styled.input`
+width:100%;
+border:none;
+`
+const InputContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border:2px solid rgb(204, 204, 204);
+border-radius:5px;
+margin-left:30px;
+margin-right:30px;
+padding-left:10px;
+padding-top:10px;
+padding-bottom:10px;
+padding-right:10px;
+`
+
+const ButtonContainer = styled.div`
+  display: flex;
+`
+
+const Button1 = styled.button`
+color:rgb(70, 110, 255);
+border:1px solid white;
+background:white;
+margin-right:10px;
+border-radius:6px;
+width:100px;
+font-weight:600;
+cursor:pointer;
+`
+const Button2 = styled.button`
+color:white;
+background:rgb(70, 110, 255);
+font-weight:600;
+border:1px solid white;
+border-radius:6px;
+padding:6px;
+width:60px;
+cursor:pointer;
 `

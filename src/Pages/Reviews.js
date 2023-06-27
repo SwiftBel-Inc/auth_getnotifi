@@ -1,9 +1,8 @@
 import React from "react";
 import DashboardHeader from "../Components/Dashboard/DashboardHeader";
-import LeftMenu from "../Components/Dashboard/LeftMenu";
-import ConversationList from "../Components/Dashboard/ConversationList";
 import styled from "styled-components";
-import Conversations from "../Components/Dashboard/Conversations";
+import LeftMenu from "../Components/Dashboard/Reviews/LeftMenu";
+import GetStarted from "../Components/Dashboard/Reviews/GetStarted";
 
 
 function Reviews(){
@@ -12,8 +11,7 @@ return(
 <DashboardHeader/>
 <Body>
 <LeftMenu/>
-<ConversationList/>
-<Conversations/>
+<GetStarted/>
 </Body>
 </>
 )
