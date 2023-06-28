@@ -11,7 +11,7 @@ import Up from '../../assets/up.png'
 function DetailsPopup(props){
 
     function convertToMinutes(timeString) {
-        let time = Math.floor(timeString/60)
+        let time = timeString?Math.floor(timeString/60):0
        return time
       }
 
@@ -21,7 +21,7 @@ function DetailsPopup(props){
         currentTime.setMinutes(currentTime.getMinutes() + minutes);
         const hours = currentTime.getHours();
         const minutesFormatted = currentTime.getMinutes().toString().padStart(2, '0');
-        const formattedTime = `${hours?hours:'0'}:${minutesFormatted?minutesFormatted:0}`;
+        const formattedTime = `${hours?hours:0}:${minutesFormatted?minutesFormatted:0}`;
         return formattedTime;
       }
 
@@ -145,7 +145,7 @@ return(
             <p style={smallElement}>Min</p>
             </div>
             <div style={Elementstyle}>
-            <p style={bigelement}>{parseInt(props?.distance)}</p>
+            <p style={bigelement}>{parseInt(props?.distance?props?.distance:0)}</p>
             <p style={smallElement}>Km</p>
             </div>
           </div>

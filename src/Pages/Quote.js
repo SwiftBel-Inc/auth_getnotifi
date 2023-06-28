@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import jsPDF from 'jspdf';
 import ReportTemplate from './ReportTemplate';
 import styled from 'styled-components';
@@ -22,7 +22,18 @@ function Quote() {
         windowWidth: 800
 		});
 	};
+    useEffect(() => {
+        const meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, initial-scale=0.5';
 
+        const head = document.head;
+        head.appendChild(meta);
+
+        return () => {
+          head.removeChild(meta);
+        };
+      }, []);
 	return (
 		<MainContainer>
       <div style={{display:'flex',justifyContent:'flex-end',marginRight:'3rem'}}>
@@ -42,7 +53,7 @@ const MainContainer=styled.div`
 overflow:scroll;
 @media (min-width: 768px) {
     body {
-      zoom: 0.8;
+      zoom: 3;
     }
   }
 
