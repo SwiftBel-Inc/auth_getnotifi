@@ -1,7 +1,7 @@
 import logo from '../assets/notifilogo.png'
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuotedata } from '../store/Actions/Auth.action';
 const ReportTemplate = () => {
@@ -9,14 +9,15 @@ const ReportTemplate = () => {
 
 
     const windowUrl = window.location.search;
-const params = new URLSearchParams(windowUrl);
-    console.log(location.pathname.split('?'))
-    let quote = location.pathname
-    let refnumber = quote?.[3]
-    console.log(windowUrl,"num")
+//const params = new URLSearchParams(windowUrl);
+const searchParams = new URLSearchParams(location.search);
+    const referenceNo = searchParams.get('referenceNo');
+    //let quote = location.pathname
+    //let refnumber = quote?.[3]
+    // console.log(windowUrl,"num")
     let dispatch=useDispatch()
     useEffect(()=>{
-    dispatch(getQuotedata('qqfwucv3trs'))
+    dispatch(getQuotedata(referenceNo))
     },[])
     const quotedata = useSelector(state => state?.auth?.quote)
 console.log(quotedata,'quotedata')
@@ -77,19 +78,20 @@ console.log(quotedata,'quotedata')
                 </div>
 
                 <Container >
-                    <div className='detailCont'>
+                    {/* <div className='detailCont'>
                         <h4 style={{ fontSize: 14 }}>Swiftbel inc.</h4>
                         <p style={styles.text}>{`651  N Broad StSuite 206Middletown`}</p>
                         <p style={styles.text1}> Delaware 19709United States</p>
                         <p style={styles.text1}>16043584116</p>
                         <p style={styles.text1}>robertprasher@icloud.com</p>
-                    </div>
+                    </div> */}
                     <div className='detailCont'>
                         <h4 style={{ fontSize: 14 }}>Bill to</h4>
-                        <p style={styles.text}>{`651  N Broad StSuite 206Middletown`}</p>
-                        <p style={styles.text1}> Delaware 19709United States</p>
-                        <p style={styles.text1}>16043584116</p>
-                        <p style={styles.text1}>robertprasher@icloud.com</p>
+
+                        <p style={styles.text}>{quotedata?.address?quotedata?.address:'-'}</p>
+                        {/* <p style={styles.text1}> Delaware 19709United States</p> */}
+                        <p style={styles.text1}>{quotedata?.phone?quotedata?.phone:'-'}</p>
+                        <p style={styles.text1}>{quotedata?.email?quotedata?.email:'-'}</p>
                     </div>
                 </Container>
                 {/* <img style={styles.fullWidth} src="photo-2.png" /> */}
@@ -123,22 +125,22 @@ console.log(quotedata,'quotedata')
 
                         </tr>
 
-
+{quotedata?.items?.map((x,index)=>{return(<>
                         <tr style={{ backgroundColor: '#fff' }}>
-                            <td>{"Hello"}</td>
+                            <td>{x?.description?x?.description:'-'}</td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>{"2"}</td>
+                            <td>{x?.quantity?x?.quantity:'-'}</td>
 
 
-                            <td>{"$100"}</td>
+                            <td>${x?.price?x.price:'0'}</td>
 
                             <td></td>
 
 
-                            <td>{"$120"}</td>
+                            <td>${x?.price&&x?.quantity?x?.price*x?.quantity:x?.price}</td>
 
                         </tr>
                         <tr style={{ backgroundColor: '#fff' }}>
@@ -150,7 +152,7 @@ console.log(quotedata,'quotedata')
                             <td>{"Sub total"}</td>
                             <td></td>
                             <td></td>
-                            <td>{"$120"}</td>
+                            <td>${x?.price&&x?.quantity?x?.price*x?.quantity:x?.price}</td>
 
                         </tr>
                         <tr style={{ backgroundColor: '#fff' }}>
@@ -162,9 +164,11 @@ console.log(quotedata,'quotedata')
                             <td>{"Total"}</td>
                             <td></td>
                             <td></td>
-                            <td>{"$120"}</td>
+                            <td>${x?.price&&x?.quantity?x?.price*x?.quantity:x?.price}</td>
 
                         </tr>
+                        </>
+)})}
 
                     </Table>
                 </div>
