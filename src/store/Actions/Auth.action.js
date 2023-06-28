@@ -84,6 +84,16 @@ export const getpaymentIntent=(value) => async (dispatch) => {
     }
     return res;
   }
+  export const getQuotedata=(value)=>async (dispatch)=>{
+    const res=await NetworkOps.get(`${ServiceEnum.quotedata}?referenceNo=${value}`)
+        if(res.status===true){
+        dispatch({
+            type: 'QUOTE',
+            payload: res.data
+          })
+        }
+    return res
+}
 
   export const getAllconversations=(value)=>async (dispatch)=>{
     const res=await NetworkOps.post(`${ServiceEnum.conversations}?from=${value}`)

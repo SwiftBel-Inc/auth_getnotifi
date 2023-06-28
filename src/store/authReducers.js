@@ -12,7 +12,8 @@ const initialState = {
     globecolor:'pink',
     globename:'',
     sendMessage:'',
-    activemenu:'Get Started'
+    activemenu:'Get Started',
+    quote:''
 }
 
 const authReducers = (state = initialState, action) => {
@@ -40,7 +41,9 @@ const authReducers = (state = initialState, action) => {
        case 'GLOBENUM' :
              return ({...state, globenum: action.payload})
        case 'ACTIVEMENU' :
-                  return ({...state, activemenu: action.payload})
+            return ({...state, activemenu: action.payload})
+      case 'QUOTE' :
+            return ({...state, quote: action.payload})
        case 'GLOBECOLOR' :
              return ({...state, globecolor: action.payload})
        case 'GLOBENAME' :

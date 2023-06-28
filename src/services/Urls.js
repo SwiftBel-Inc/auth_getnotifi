@@ -19,7 +19,8 @@ export const ServiceEnum={
     livetracker:'tracker',
     conversations:'twilio/fetchAllConversation',
     chats:'twilio/fetchConversation',
-    sendMessage:'twilio/createConverstaion'
+    sendMessage:'twilio/createConverstaion',
+    quotedata:'booking/notify/getQuote'
 }
 
 export const urlFor =(services)=>{
