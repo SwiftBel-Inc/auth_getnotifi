@@ -11,7 +11,8 @@ const initialState = {
     inchats:'',
     globecolor:'pink',
     globename:'',
-    sendMessage:''
+    sendMessage:'',
+    activemenu:'Get Started'
 }
 
 const authReducers = (state = initialState, action) => {
@@ -38,6 +39,8 @@ const authReducers = (state = initialState, action) => {
              return ({...state, sendMessage: action.payload})
        case 'GLOBENUM' :
              return ({...state, globenum: action.payload})
+       case 'ACTIVEMENU' :
+                  return ({...state, activemenu: action.payload})
        case 'GLOBECOLOR' :
              return ({...state, globecolor: action.payload})
        case 'GLOBENAME' :

@@ -6,6 +6,7 @@ import unassigned from '../../../assets/unassigned.png';
 import assigned from '../../../assets/assigned.png';
 import settings from '../../../assets/settings.png'
 import { useDispatch } from "react-redux";
+import { activemenu } from "../../../store/Actions/Auth.action";
 function LeftMenu(){
 const [active,setActive]=useState('Get Started')
 const elements=[
@@ -25,7 +26,7 @@ const elements=[
 let dispatch=useDispatch()
 const handlemenu=(name)=>{
     setActive(name)
-    dispatch()
+    dispatch(activemenu(name))
 }
 return (
 <Main>

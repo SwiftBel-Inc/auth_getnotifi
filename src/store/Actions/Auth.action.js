@@ -141,7 +141,13 @@ export const getname=(name)=>async (dispatch)=>{
       })
 return name
 }
-
+export const activemenu=(name)=>async (dispatch)=>{
+  dispatch({
+      type: 'ACTIVEMENU',
+      payload: name
+    })
+return name
+}
 export const sendMessage=(data)=>async (dispatch)=>{
     const res=await NetworkOps.post(ServiceEnum.sendMessage,data)
         if(res.status===true)

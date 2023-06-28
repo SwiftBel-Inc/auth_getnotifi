@@ -86,7 +86,6 @@ const IconWrapper = styled.div`
 `;
 
 const Sublogo=styled.img`
-background:white;
 padding:3px;
 margin-top:12px;
 position: absolute;

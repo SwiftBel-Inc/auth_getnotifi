@@ -8,7 +8,7 @@ function Connect(){
     useEffect(() => {
         window.gapi.load('client:auth2', () => {
             window.gapi.client.init({
-                clientId: '943526723324-31g5g1h4uqi9qjnjhr4p6hjun1in96oc.apps.googleusercontent.com',
+                clientId: '943526723324-3o55fkb05jroufqdffsb7ur94nt11nvf.apps.googleusercontent.com',
                 plugin_name: "chats",
                 scope:'https://www.googleapis.com/auth/business.manage'
             }).then(() => {
@@ -34,16 +34,16 @@ function Connect(){
       const headers = new Headers({
         Authorization: `Bearer ${response.accessToken}`,
       });
-      fetch(`${'https://serene-shore-18290.herokuapp.com/'}https://mybusiness.googleapis.com/v4/accounts`, { headers, mode: 'cors' })
-      .then(response => response.json())
-      .then(data => {
-        if (data.accounts && data.accounts.length > 0) {
-          setBusinessDetails(data.accounts[0]);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+      // fetch(`https://mybusiness.googleapis.com/v4/accounts`, { headers, mode: 'cors' })
+      // .then(response => response.json())
+      // .then(data => {
+      //   if (data.accounts && data.accounts.length > 0) {
+      //     setBusinessDetails(data.accounts[0]);
+      //   }
+      // })
+      // .catch(error => {
+      //   console.error(error);
+      // });
     };
 
 return(
@@ -51,7 +51,7 @@ return(
     <Head>
 <Segment>
 <GoogleLogin
-      clientId="943526723324-31g5g1h4uqi9qjnjhr4p6hjun1in96oc.apps.googleusercontent.com"
+      clientId="943526723324-3o55fkb05jroufqdffsb7ur94nt11nvf.apps.googleusercontent.com"
       buttonText="Connect google business"
       onSuccess={responseGoogle}
       onFailure={responseGoogle}
