@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import GoogleLogin from 'react-google-login';
 
 function Connect(){
-    const [businessDetails, setBusinessDetails] = useState(null);
+    //const [businessDetails, setBusinessDetails] = useState(null);
 
     useEffect(() => {
         window.gapi.load('client:auth2', () => {
@@ -23,7 +23,7 @@ function Connect(){
         }).then(response => {
           const { result } = response;
           if (result && result.accounts && result.accounts.length > 0) {
-            setBusinessDetails(result.accounts[0]);
+           // setBusinessDetails(result.accounts[0]);
           }
         }).catch(error => {
           console.error(error);
@@ -34,16 +34,16 @@ function Connect(){
       const headers = new Headers({
         Authorization: `Bearer ${response.accessToken}`,
       });
-      // fetch(`https://mybusiness.googleapis.com/v4/accounts`, { headers, mode: 'cors' })
-      // .then(response => response.json())
-      // .then(data => {
-      //   if (data.accounts && data.accounts.length > 0) {
-      //     setBusinessDetails(data.accounts[0]);
-      //   }
-      // })
-      // .catch(error => {
-      //   console.error(error);
-      // });
+      fetch(`https://mybusiness.googleapis.com/v4/accounts`, { headers, mode: 'cors' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.accounts && data.accounts.length > 0) {
+          //setBusinessDetails(data.accounts[0]);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
     };
 
 return(

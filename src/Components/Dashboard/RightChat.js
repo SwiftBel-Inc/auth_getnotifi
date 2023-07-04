@@ -15,7 +15,7 @@ function RightChat(){
 const [message,setMessage]=useState(null)
 const [body,setBody]=useState(null)
 const [num,setNum]=useState(null)
-const [details,setDetails]=useState(null)
+// const [details,setDetails]=useState(null)
 const detail = useSelector(state => state?.auth?.convo)
 const firstnumber = detail ? detail?.[0]?.name ? detail?.[0]?.name : detail?.[0]?.to :''
 const frstnum = detail ? detail?.[0]?.to :''

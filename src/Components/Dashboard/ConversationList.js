@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { useDispatch } from 'react-redux';
-import { getname } from '../../store/Actions/Auth.action';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllconversations, getname, getnumber } from '../../store/Actions/Auth.action';
+import arrow from '../.././assets/arrow.png'
 function ConversationList(){
     const [value, setValue] = React.useState('OPEN');
     const [val, setVal] = React.useState(1);
+    const detail = useSelector(state => state?.auth?.convo)
+    console.log(detail,'conversations')
+    let fromnumber=localStorage.getItem('fromnumber')
+    useEffect(() => {
+        dispatch(getAllconversations('+15878064483'));
+        dispatch(getname(detail?.[0]?.name ?detail?.[0]?.name:detail?.[0]?.to))
 
+      },[fromnumber,detail?.[0]?.name,detail?.[0]?.to]);
+      console.log(detail,'details')
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -37,9 +45,16 @@ const details=
 }
 ]
 let dispatch=useDispatch()
-const handleactive=(ind,name)=>{
+const handleactive=(ind,name,num)=>{
 setVal(ind)
+dispatch(getnumber(num))
 dispatch(getname(name))
+}
+const handledate=(x)=>{
+    const date = new Date(x);
+    const options = { day: 'numeric', month: 'long' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    return formattedDate
 }
 return(
 <Main>
@@ -64,36 +79,44 @@ return(
         <CustomTab value="OPEN" label="OPEN"/>
         <CustomTab value="CLOSED" label="CLOSED"/>
       </Tabs>
+      {detail?.length===0?
+<p style={{fontSize:'20px',color:'black',marginTop:'40px'}}>No Conversations</p>
+:''}
 <Convos>
-{details?.map((x,index)=>{
+{detail && detail?.map((x,index)=>{
 return(
-<ConvoHead key={index} onClick={()=>handleactive(index,x.name)} className={index===val?'blueseg':''}>
+<ConvoHead key={index} onClick={()=>handleactive(index,x?.name?x?.name:x?.to,x?.to)} className={index===val?'blueseg':''}>
 <Namediv>
-<Name className={index===val?'whitetext':''}>{x.name}</Name>
-<Day className={index===val?'smokytext':''}>{x.day}</Day>
+<Name className={index===val?'whitetext':''}>{x?.name?x?.name:x.to}</Name>
+<Day className={index===val?'smokytext':''}>{handledate(x?.createdAt)}</Day>
 </Namediv>
 <Flexdiv>
-<Googleimg src='https://assets.podium.com/icons/google.png' alt='google' />
+{/* <Googleimg src='https://assets.podium.com/icons/google.png' alt='google' />
 <Flexdiv>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
+</Flexdiv> */}
+<ChatText className={index===val?'smokytext':''}> <Icons src={arrow} alt='send'/>You : {x?.body}</ChatText>
 </Flexdiv>
-<ChatText className={index===val?'smokytext':''}>{x.text}</ChatText>
-</Flexdiv>
-<Boxes className='review'>
+{/* <Boxes className='review'>
 <p className='boxtext'>REVIEWS</p>
 </Boxes>
 <Boxes className={index===val?'limit2':'limit'}>
 <p className='boxtext'>LIMIT HIT</p>
+</Boxes> */}
+<Boxes className={index===val?'general2':'general'}>
+<p className='boxtext'>General</p>
 </Boxes>
 </ConvoHead>
 )
 })}
 
 </Convos>
+
+
 </Main>
 )
 }
@@ -187,11 +210,16 @@ background:#1e90ff;
 margin-bottom:15px;
 }
 `
-
-const Rating=styled.img`
-height:15px;
-width:15px;
-padding:1px;
+// const Rating=styled.img`
+// height:15px;
+// width:15px;
+// padding:1px;
+// `
+const Icons=styled.img`
+height:20px;
+width:18px;
+padding-right:6px;
+margin-bottom:-5px;
 `
 const Name=styled.p`
 font-size: 16px;
@@ -210,6 +238,7 @@ padding-left:20px;
 padding-right:20px;
 border-bottom:1px solid #d4d4d4;
 cursor:pointer;
+padding-bottom:10px;
 .limit{
 background:rgba(231, 62, 81, 0.16);
 color: rgb(231, 62, 81);
@@ -218,6 +247,14 @@ margin-bottom:15px;
 .review{
 background:rgb(231, 237, 254);
 color:rgb(99, 114, 125);
+}
+.general{
+background:#d8e5f2;
+color:rgb(99, 114, 125);
+}
+.general2{
+background:#3973ac;
+color:#FAFAFA;
 }
 `
 const Namediv=styled.div`
@@ -230,17 +267,17 @@ margin-top:-5px;
 `
 const ChatText=styled.div`
 font-size:13px;
-margin-left:10px;
+margin-left:0px;
 margin-top:-4px;
 color:#a1a1a1;
 `
-const Googleimg=styled.img`
-height:20px;
-width:20px;
-margin-right:5px;
-border-radius:4px;
-margin-top:-6px;
-`
+// const Googleimg=styled.img`
+// height:20px;
+// width:20px;
+// margin-right:5px;
+// border-radius:4px;
+// margin-top:-6px;
+// `
 const Boxes=styled.div`
 border-radius:5px;
 width:60px;

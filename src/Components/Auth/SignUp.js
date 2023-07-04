@@ -116,9 +116,9 @@ errormsg?
 {errormsg}
 </Msg>
 :null}
-<Inputbox id="outlined-basic" label="First name" variant="outlined" onChange={onChangeName('firstName')} required error={isnamevalid.firstName!==false?false:true} />
+<Inputbox id="outlined-basic" size="small" label="First name" variant="outlined" onChange={onChangeName('firstName')} error={isnamevalid.firstName!==false?false:true} />
 <br/>
-<Inputbox id="outlined-basic" label="Last name" variant="outlined" onChange={onChangeName('lastName')} error={isnamevalid.lastName!==false?false:true}/>
+<Inputbox id="outlined-basic" size="small" label="Last name" variant="outlined" onChange={onChangeName('lastName')} error={isnamevalid.lastName!==false?false:true}/>
 <br/>
 <div className='phoneInput'>
 <PhoneInput
@@ -132,9 +132,9 @@ errormsg?
       />
       </div>
 <br/>
-<Inputbox id="outlined-basic" label="Email" variant="outlined" onChange={(e) => onChangeEmail(e)} required error={isValid!==false?false:true} />
+<Inputbox id="outlined-basic" size="small" label="Email" variant="outlined" onChange={(e) => onChangeEmail(e)} error={isValid!==false?false:true} />
 <br/>
-<Inputbox id="outlined-basic" label="Create a password" variant="outlined" type={'password'} required onChange={(e) => onChangePassword(e)} error={ispassValid!==false?false:true}/>
+<Inputbox id="outlined-basic" size="small" label="Create a password" variant="outlined" type={'password'} onChange={(e) => onChangePassword(e)} error={ispassValid!==false?false:true}/>
 <Desc2>By continuing, you agree that you have read and accept the Podium <a href='/'>Terms of Service</a> and <a href='/'>Privacy Policy</a>.</Desc2>
 <br/>
 <CustomButton variant="contained" onClick={()=>handlesubmit()}>Start 14-day free trial</CustomButton>

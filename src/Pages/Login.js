@@ -36,11 +36,10 @@ justify-content:center;
 overflow:hidden;
 `
 const Right = styled.div`
-background:#12151a;
 width:750px;
-color:white;
 overflow:hidden;
 padding-top:70px;
+border-left: 1px solid #dedede;
 @media (min-width: 260px) and (max-width: 1311px){
 display:none;
 }
@@ -59,7 +58,6 @@ justify-content:center;
 const ModalHeading=styled.p`
 font-weight:600;
 font-size:30px;
-color:white;
 text-align:center;
 `
 const LogoStyle=styled.img`

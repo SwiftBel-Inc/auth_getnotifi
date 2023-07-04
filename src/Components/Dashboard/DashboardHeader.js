@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components';
-import sublogo from '../../assets/sublogo.png'
+import sublogo from '../../assets/whitelogo.png'
 import { useLocation, useNavigate } from 'react-router-dom';
 import Home from '../../assets/home.png'
 function DashboardHeader(){
@@ -91,8 +91,8 @@ margin-top:12px;
 position: absolute;
 top: 0;
 left: 0;
-width: 100%;
-height: 100%;
+width: 130%;
+height: 130%;
 transition: transform 0.3s ease, opacity 0.3s ease;
 ${IconWrapper}:hover & {
   transform: rotate(180deg);

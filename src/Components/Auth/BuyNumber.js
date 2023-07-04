@@ -57,7 +57,7 @@ setMobnumber(e.target.value)
 }
 let location = useLocation()
 let navigate=useNavigate()
-const { id,id2 } = useParams()
+const { id,id2,priceid } = useParams()
 console.log(id,id2,'dif')
 const handlesubmit2=async()=>{
     setErrormsg(null)
@@ -72,15 +72,45 @@ const handlesubmit2=async()=>{
         }
         if(res?.status===true){
         setData(res?.data)
+        localStorage.setItem('fromnumber','+'+res?.data?.twilioPhone)
         if(location.pathname==='/'||id==='0'||id2==='free'){
          navigate('/dashboard/inbox')
         }
-        else navigate(`/payment/${id}/${id2}`)
+        else navigate(`/payment/${id}/${id2}/${priceid}`)
         }
      return res
     }
 }
 
+const regionData = [
+
+  { label: 'Ontario', value: 'ON'},
+
+  { label: 'British Columbia', value: 'BC'},
+
+  { label: 'Alberta', value: 'AB'},
+
+  { label: 'Saskatchewan', value: 'SK'},
+
+  { label: 'Manitoba', value: 'MB'},
+
+  { label: 'Quebec', value: 'QC'},
+
+  { label: 'New Brunswick', value: 'NB'},
+
+  { label: 'Prince Edward Island', value: 'PEI'},
+
+  { label: 'Nova Scotia', value: 'NS'},
+
+  { label: 'Newfoundland and Labrador', value: 'NL'},
+
+  { label: 'Yukon', value: 'YT'},
+
+  { label: 'Northwest Territories', value: 'NWT'},
+
+  { label: 'Nunavut', value: 'NU'},
+
+]
 return(
 <Left>
 <Heading>Give Notifi a try. It’s free.</Heading>
@@ -106,6 +136,7 @@ errormsg?
           required
           value={values?.country}
           error={valids.country}
+          size="small"
         >
           <MenuItem value={'CA'}>Canada</MenuItem>
         </Inputbox>
@@ -117,10 +148,15 @@ errormsg?
           label="Region"
           onChange={handleChange('region')}
           required
-          value={values?.region}
+          value={values.region}
           error={valids.region}
+          size="small"
         >
-          <MenuItem value={'ON'}>Ontario</MenuItem>
+          {regionData?.map((x,index)=>{
+          return(
+          <MenuItem value={x.value} key={index}>{x.label}</MenuItem>
+          )
+          })}
         </Inputbox><br/>
         {data?.length>0?<>
         <Label id="demo-simple-select-helper-label">Select number</Label>
@@ -132,6 +168,7 @@ errormsg?
           required
           value={mobnumber}
           placeholder='Select number'
+          size="small"
         >
             <MenuItem value={'Select number'}>Select number</MenuItem>
             {data?.map((x,index)=>{

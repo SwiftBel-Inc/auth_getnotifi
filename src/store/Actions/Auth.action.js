@@ -44,6 +44,7 @@ export const loginUsers=(data)=>async (dispatch,getstate)=>{
     const res=await NetworkOps.post(ServiceEnum.loginUser,data)
     if(res.status===true)
         {
+          localStorage.setItem('token', res?.token)
             dispatch({
                 type: 'LOGIN_TOKEN',
                 payload: res?.token

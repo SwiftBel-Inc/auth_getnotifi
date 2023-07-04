@@ -84,8 +84,8 @@ margin-top:-4px;
 `
 const Segment=styled.div`
 border:1px solid #dedede;
-margin-right:20px;
-width:70%;
+margin-right:40px;
+width:65%;
 padding-left:20px;
 padding-right:20px;
 border-radius:8px;
@@ -96,7 +96,7 @@ width:30%;
 margin-top:-18px;
 `
 const Que=styled.p`
-font-size:12px;
+font-size:14px;
 cursor:pointer;
 text-align:start;
 font-weight:400;

@@ -21,7 +21,8 @@ import { useNavigate, useParams } from "react-router-dom";
     let dispatch=useDispatch()
     let params=useParams()
     let navigate=useNavigate()
-    let {id}=params
+    let {priceid}=params
+    console.log(priceid,'priceid')
     const createSubscription = async () => {
         try {
             const paymentMethod = await stripe.createPaymentMethod({
@@ -40,8 +41,7 @@ import { useNavigate, useParams } from "react-router-dom";
                 "name":name,
                 "email":email,
                 "paymentMethod":paymentMethod.paymentMethod.id,
-                "amount":id,
-                "priceId":"price_1MwV53IP0V9hIrNSBGDihUDf"
+                "priceId":priceid
             }))
             console.log(response,'idc')
             if (!response.status)

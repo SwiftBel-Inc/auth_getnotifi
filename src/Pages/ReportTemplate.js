@@ -1,14 +1,14 @@
 import logo from '../assets/notifilogo.png'
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuotedata } from '../store/Actions/Auth.action';
 const ReportTemplate = () => {
     let location = useLocation()
 
 
-    const windowUrl = window.location.search;
+    //const windowUrl = window.location.search;
 //const params = new URLSearchParams(windowUrl);
 const searchParams = new URLSearchParams(location.search);
     const referenceNo = searchParams.get('referenceNo');
@@ -74,7 +74,7 @@ console.log(quotedata,'quotedata')
                             {"Quote"}
                         </h1>
                     </div>
-                    <img style={styles.fullWidth} src={logo} />
+                    <img style={styles.fullWidth} src={logo} alt='logo' />
                 </div>
 
                 <Container >

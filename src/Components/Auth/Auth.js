@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import logo from '../../assets/notifilogo.png';
 import { loginUsers } from '../../store/Actions/Auth.action';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function Auth(){
 const [customtext,setCustomtext]=useState('Next')
@@ -15,6 +15,8 @@ const [isValid, setisvalid] = useState();
 const [ispassValid, setispassvalid] = useState();
 const [errormsg,setErrormsg]=useState(null)
 let dispatch=useDispatch();
+const { id,id2,priceid } = useParams()
+let location=useLocation()
 let navigate = useNavigate();
  const handlelogin=async()=>{
     //let reg =  /^([\w\.-]+@[\w\.-]+(\.[\w]+)*)|(\d{3}-\d{3}-\d{4})$/;
@@ -35,7 +37,14 @@ let navigate = useNavigate();
         "password":password
         }))
         if(res?.status===true){
-            navigate('/dashboard/inbox')
+            localStorage.setItem('fromnumber','+'+res?.data?.twilioPhone)
+            if(location.pathname==='/login'||id==='0'||id2==='free'){
+                navigate('/dashboard/inbox')
+               }
+               else
+               {
+                navigate(`/payment/${id}/${id2}/${priceid}`)
+               }
             }
         if(res?.status===false){
         setErrormsg(res?.meesage)
@@ -72,10 +81,10 @@ errormsg?
 :
 null}
 <br/>
-<Inputbox id="outlined-basic" label="Email" variant="outlined" onChange={(e) => onChangeEmail(e)} required error={isValid!==false?false:true} />
+<Inputbox id="outlined-basic" size="small" label="Email" variant="outlined" onChange={(e) => onChangeEmail(e)} required error={isValid!==false?false:true} />
 <br/>
 {customtext==='Sign in'?
-<Inputbox id="outlined-basic" label="Password" variant="outlined" type={'password'} required onChange={(e) => onChangePassword(e)} error={ispassValid!==false?false:true} />
+<Inputbox id="outlined-basic" size="small" label="Password" variant="outlined" type={'password'} required onChange={(e) => onChangePassword(e)} error={ispassValid!==false?false:true} />
 :''}
 <br/>
 <CustomButton variant="contained" onClick={()=>handlelogin()}>{customtext}</CustomButton>
