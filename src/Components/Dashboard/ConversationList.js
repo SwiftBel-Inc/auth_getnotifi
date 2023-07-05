@@ -7,12 +7,12 @@ import { getAllconversations, getname, getnumber } from '../../store/Actions/Aut
 import arrow from '../.././assets/arrow.png'
 function ConversationList(){
     const [value, setValue] = React.useState('OPEN');
-    const [val, setVal] = React.useState(1);
+    const [val, setVal] = React.useState(0);
     const detail = useSelector(state => state?.auth?.convo)
     console.log(detail,'conversations')
     let fromnumber=localStorage.getItem('fromnumber')
     useEffect(() => {
-        dispatch(getAllconversations('+15878064483'));
+        dispatch(getAllconversations('+13656075582'));
         dispatch(getname(detail?.[0]?.name ?detail?.[0]?.name:detail?.[0]?.to))
 
       },[fromnumber,detail?.[0]?.name,detail?.[0]?.to]);
@@ -21,29 +21,7 @@ function ConversationList(){
     setValue(newValue);
   };
 
-const details=
-[
-{
-"name":'Prakash Chanchal',
-"day":'wednesday',
-'text':'Very proffesional servi...'
-},
-{
-"name":'Ashwani Kumar Mishra',
-"day":'wednesday',
-'text':'Highly proffesional'
-},
-{
-"name":'Prachi Patel',
-"day":'wednesday',
-'text':'Very proffesional servi...'
-},
-{
-"name":'Priti Mishra',
-"day":'wednesday',
-'text':'we had a wonderful...'
-}
-]
+
 let dispatch=useDispatch()
 const handleactive=(ind,name,num)=>{
 setVal(ind)
@@ -107,9 +85,9 @@ return(
 <Boxes className={index===val?'limit2':'limit'}>
 <p className='boxtext'>LIMIT HIT</p>
 </Boxes> */}
-<Boxes className={index===val?'general2':'general'}>
+{/* <Boxes className={index===val?'general2':'general'}>
 <p className='boxtext'>General</p>
-</Boxes>
+</Boxes> */}
 </ConvoHead>
 )
 })}
@@ -238,7 +216,7 @@ padding-left:20px;
 padding-right:20px;
 border-bottom:1px solid #d4d4d4;
 cursor:pointer;
-padding-bottom:10px;
+padding-bottom:20px;
 .limit{
 background:rgba(231, 62, 81, 0.16);
 color: rgb(231, 62, 81);

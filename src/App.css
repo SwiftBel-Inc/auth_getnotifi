@@ -101,3 +101,13 @@ color: red;
       height: 30px;
       position: relative;
     }
+    .pac-container {
+      background-color: #fff;
+      background-image: none !important;
+     }
+
+     .pac-container:after {
+      background-image: none !important;
+      height: 0px;
+    }
+

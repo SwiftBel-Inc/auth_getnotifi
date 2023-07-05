@@ -7,6 +7,7 @@ import { registerUser } from '../../store/Actions/Auth.action';
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import Autocomplete from 'react-google-autocomplete';
 
 function SignUp(props){
 let dispatch=useDispatch()
@@ -18,11 +19,13 @@ const [errormsg,setErrormsg]=useState(null)
 
 const [isnamevalid,setIsnamevalid]=useState({
 'firstName':null,
-'lastName':null
+'lastName':null,
+'businessName':null
 })
 const [values,setValues]=useState({
     'firstName':null,
-    'lastName':null
+    'lastName':null,
+    'businessName':null
     })
 const [phoneNumber, setPhoneNumber] = useState('');
 
@@ -40,7 +43,8 @@ const res = await dispatch(registerUser({
     "password":password,
     "firstName":values.firstName,
     "lastName":values.lastName,
-    "phone":phoneNumber
+    "phone":phoneNumber,
+    "businessName":values.businessName
     }))
     if(res?.status===false){
         setErrormsg(res?.meesage)
@@ -58,6 +62,10 @@ const funisValid=()=>{
           setIsnamevalid({...isnamevalid,firstName:false})
           return false
       }
+      if(!(values?.businessName&&values?.businessName?.length>0)){
+        setIsnamevalid({...isnamevalid,businessName:false})
+        return false
+    }
     //   else if(!(values.lastName&&values.lastName.length>0)){
     //     setIsnamevalid({...isnamevalid,lastName:false})
     //     return false
@@ -80,6 +88,11 @@ const onChangeName=(name)=>(event)=>{
             setIsnamevalid({...isnamevalid,firstName:true})
         }
     }
+    if(name==='businessName'){
+        if(event?.target?.value?.length>0){
+            setIsnamevalid({...isnamevalid,businessName:true})
+        }
+    }
     // if(name==='lastName'){
     //     if(event.target.value.length>0){
     //         setIsnamevalid({...isnamevalid,lastName:true})
@@ -89,18 +102,48 @@ const onChangeName=(name)=>(event)=>{
     }
     const parsedNumber = phoneNumber?.length>0? parsePhoneNumberFromString(phoneNumber):null
     const isValidNumber = parsedNumber ? parsedNumber?.isValid() : false;
+    const onPlaceSelected = (place) => {
+        const funaddress = place.formatted_address
+        setValues({...values,businessName:funaddress})
+    }
 const onChangePassword = (e) => {
     if(e?.target?.value?.length>7){
         setispassvalid(true)
         }
     setPassword(e.target.value)
 }
+// Define global variables
+var autocomplete;
+
+// Load the Google Places API script
+function loadPlacesAPI() {
+  var script = document.createElement('script');
+  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA&libraries=places&callback=initializeAutocomplete';
+  document.body.appendChild(script);
+}
+
+// Initialize the autocomplete
+function initializeAutocomplete() {
+  var input = document.getElementById('autocomplete-input');
+
+  // Set the types option to 'establishment'
+  var options = {
+    types: ['establishment']
+  };
+
+  autocomplete = new window.google.maps.places.Autocomplete(input, options);
+}
+
+// Call the loadPlacesAPI function to load the API script
+loadPlacesAPI();
+
 return(
 <Left>
 <Heading>Give Notifi a try. It’s free.</Heading>
 <Desc>Grow with tools for texting customers, getting reviews, and making sales. No credit card required.</Desc>
+<br/>
 {
-isnamevalid.firstName === false||isnamevalid.lastName ===false ? <Msg className='errormsg'>
+isnamevalid.firstName === false||isnamevalid.lastName ===false||isnamevalid?.businessName ? <Msg className='errormsg'>
 Please fill all mandatory fields !
 </Msg> :
 isValid === false||ispassValid===false ? <Msg className='errormsg'>
@@ -116,6 +159,19 @@ errormsg?
 {errormsg}
 </Msg>
 :null}
+                                   <Place
+                                    apiKey='AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA'
+                                    types={['address', '(cities)', '(regions)']}
+                                    options={{
+                                        types: ["establishment"],
+                                        componentRestrictions: {
+                                            country: 'ca'
+                                        }
+                                    }}
+                                    placeholder='Business name'
+                                    onPlaceSelected={onPlaceSelected}
+                                    defaultValue={values?.businessName}
+                                /><br/>
 <Inputbox id="outlined-basic" size="small" label="First name" variant="outlined" onChange={onChangeName('firstName')} error={isnamevalid.firstName!==false?false:true} />
 <br/>
 <Inputbox id="outlined-basic" size="small" label="Last name" variant="outlined" onChange={onChangeName('lastName')} error={isnamevalid.lastName!==false?false:true}/>
@@ -175,7 +231,6 @@ font-weight:400;
 font-size:16px;
 width:64%;
 margin-top:-9px;
-
 `
 const Desc2=styled.p`
 text-align:start;
@@ -190,6 +245,25 @@ width:66%;
 border-radius:12px;
 @media (min-width: 260px) and (max-width: 1311px){
 width:90%;
+}
+`
+const Place = styled(Autocomplete)`
+height:38px;
+width:64%;
+border-radius:4px;
+border:1px solid lightgray;
+font-weight:400;
+padding-left:12px;
+@media (min-width: 260px) and (max-width: 1311px){
+    width:88%;
+    }
+&::placeholder {
+  font-size:15px;
+  font-weight:400;
+}
+&:focus {
+outline:none;
+border:1px solid lightgray;
 }
 `
 const CustomButton=styled(Button)`
