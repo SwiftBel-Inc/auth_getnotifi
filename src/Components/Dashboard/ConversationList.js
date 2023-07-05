@@ -77,7 +77,7 @@ return(
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 </Flexdiv> */}
-<ChatText className={index===val?'smokytext':''}> <Icons src={arrow} alt='send'/>You : {x?.body}</ChatText>
+<ChatText className={index===val?'smokytext':''}> You : {x?.body.slice(0,70)}</ChatText>
 </Flexdiv>
 {/* <Boxes className='review'>
 <p className='boxtext'>REVIEWS</p>
@@ -248,6 +248,7 @@ font-size:13px;
 margin-left:0px;
 margin-top:-4px;
 color:#a1a1a1;
+text-align:start;
 `
 // const Googleimg=styled.img`
 // height:20px;

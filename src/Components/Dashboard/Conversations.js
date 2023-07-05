@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 import profile from '../../assets/profile.png'
 import Sendicon from '../../assets/send.png'
 
-import { getAllinchats, getAlloutchats, sendMessage } from '../../store/Actions/Auth.action'
+import { getAllinchats, getAlloutchats, getUserData, sendMessage } from '../../store/Actions/Auth.action'
 const socket = io('https://prod.swiftbel.com');
 
 function Conversations(){
@@ -28,10 +28,12 @@ console.log(frstnum,'frstnum')
     useEffect(()=>{
         dispatch(getAllinchats(fromnumber,globenumber?globenumber:frstnum));
         dispatch(getAlloutchats(globenumber?globenumber:frstnum,fromnumber));
+        dispatch(getUserData())
     },[globenumber,frstnum,fromnumber])
     const outchats = useSelector(state => state?.auth?.outchats)
     const inchats = useSelector(state => state?.auth?.inchats)
-
+    const userdata = useSelector(state => state?.auth?.userdata)
+console.log(userdata?.businessName,'userdata')
 
 
      useEffect(() => {
@@ -113,15 +115,19 @@ return(
 <span>{globename?.toUpperCase().slice(0,1)}</span>
 </Profile>
 <Name>{globename}</Name>
-<Line1>|</Line1>
+{/* <Line1>|</Line1>
 <div>
 <ReviewStar src='https://app.podium.com/static/media/review.9e8d7fce974894c5320fbeb93e8d4acb.svg' alt='review'/>
-</div>
+</div> */}
+{userdata?.businessName?
+<>
 <Line2>|</Line2>
 <LocateGps>
 <Marker src={GPS} alt='gps'/>
-<span>Accounting Bridge</span>
+<span>{userdata?.businessName}</span>
 </LocateGps>
+</>
+:''}
 </Flexbox>
 <Hr/>
 <Chats>

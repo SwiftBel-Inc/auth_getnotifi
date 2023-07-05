@@ -20,7 +20,8 @@ export const ServiceEnum={
     conversations:'twilio/fetchAllConversation',
     chats:'twilio/fetchConversation',
     sendMessage:'twilio/createConverstaion',
-    quotedata:'booking/notify/getQuote'
+    quotedata:'booking/notify/getQuote',
+    userdata:'user/notify/getUserData'
 }
 
 export const urlFor =(services)=>{

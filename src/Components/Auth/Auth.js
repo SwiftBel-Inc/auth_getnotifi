@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import logo from '../../assets/notifilogo.png';
-import { loginUsers } from '../../store/Actions/Auth.action';
+import { getpaymentIntent, loginUsers } from '../../store/Actions/Auth.action';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const [isValid, setisvalid] = useState();
 const [ispassValid, setispassvalid] = useState();
 const [errormsg,setErrormsg]=useState(null)
 let dispatch=useDispatch();
-const { id,id2,priceid } = useParams()
+const {priceid } = useParams()
 let location=useLocation()
 let navigate = useNavigate();
  const handlelogin=async()=>{
@@ -38,13 +38,16 @@ let navigate = useNavigate();
         }))
         if(res?.status===true){
             localStorage.setItem('fromnumber','+'+res?.data?.twilioPhone)
-            if(location.pathname==='/login'||id==='0'||id2==='free'){
+            if(location.pathname==='/login'){
                 navigate('/dashboard/inbox')
                }
                else
                {
-                navigate(`/payment/${id}/${id2}/${priceid}`)
-               }
+                const response = await dispatch(getpaymentIntent({
+                  "priceId":priceid
+              }))
+              window.open(`${response.data}`)
+              }
             }
         if(res?.status===false){
         setErrormsg(res?.meesage)

@@ -13,7 +13,8 @@ const initialState = {
     globename:'',
     sendMessage:'',
     activemenu:'Get Started',
-    quote:''
+    quote:'',
+    userdata:''
 }
 
 const authReducers = (state = initialState, action) => {
@@ -30,6 +31,8 @@ const authReducers = (state = initialState, action) => {
              return ({...state, payment: action.payload})
        case 'LOCATION' :
              return ({...state, locationdetails: action.payload})
+       case 'USERDATA' :
+             return ({...state, userdata: action.payload})
        case 'CONVO' :
              return ({...state, convo: action.payload})
        case 'OUTCHATS' :

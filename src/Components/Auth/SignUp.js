@@ -25,7 +25,6 @@ const [isnamevalid,setIsnamevalid]=useState({
 const [values,setValues]=useState({
     'firstName':null,
     'lastName':null,
-    'businessName':null
     })
 const [phoneNumber, setPhoneNumber] = useState('');
 
@@ -44,7 +43,9 @@ const res = await dispatch(registerUser({
     "firstName":values.firstName,
     "lastName":values.lastName,
     "phone":phoneNumber,
-    "businessName":values.businessName
+    "businessName":values.businessName,
+    "address":values.address,
+    "placeId":values.placeId
     }))
     if(res?.status===false){
         setErrormsg(res?.meesage)
@@ -102,40 +103,21 @@ const onChangeName=(name)=>(event)=>{
     }
     const parsedNumber = phoneNumber?.length>0? parsePhoneNumberFromString(phoneNumber):null
     const isValidNumber = parsedNumber ? parsedNumber?.isValid() : false;
-    const onPlaceSelected = (place) => {
+    const onPlaceSelected = (place,x,y) => {
         const funaddress = place.formatted_address
-        setValues({...values,businessName:funaddress})
+        const placeid=place.place_id
+        const separation=y?.gm_accessors_?.place?.Wj?.formattedPrediction?.split(',')
+        const businessName=separation?.[0]
+        console.log(businessName,'place')
+        setValues({...values,address:funaddress,placeId:placeid,businessName:businessName})
     }
+    console.log(values,'vals')
 const onChangePassword = (e) => {
     if(e?.target?.value?.length>7){
         setispassvalid(true)
         }
     setPassword(e.target.value)
 }
-// Define global variables
-var autocomplete;
-
-// Load the Google Places API script
-function loadPlacesAPI() {
-  var script = document.createElement('script');
-  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA&libraries=places&callback=initializeAutocomplete';
-  document.body.appendChild(script);
-}
-
-// Initialize the autocomplete
-function initializeAutocomplete() {
-  var input = document.getElementById('autocomplete-input');
-
-  // Set the types option to 'establishment'
-  var options = {
-    types: ['establishment']
-  };
-
-  autocomplete = new window.google.maps.places.Autocomplete(input, options);
-}
-
-// Call the loadPlacesAPI function to load the API script
-loadPlacesAPI();
 
 return(
 <Left>
@@ -161,14 +143,16 @@ errormsg?
 :null}
                                    <Place
                                     apiKey='AIzaSyDDVROE0bO7yMSpAB9ARPvZG0lrUOCWRMA'
-                                    types={['address', '(cities)', '(regions)']}
+                                    types={['establishment']}
                                     options={{
-                                        types: ["establishment"],
+                                        types: ['establishment'],
                                         componentRestrictions: {
                                             country: 'ca'
                                         }
                                     }}
                                     placeholder='Business name'
+                                    //onChange={onPlaceSelected}
+                                    //onClick={onPlaceSelected}
                                     onPlaceSelected={onPlaceSelected}
                                     defaultValue={values?.businessName}
                                 /><br/>

@@ -39,8 +39,8 @@ function App() {
         <Route path='dashboard/reviews' element={<Reviews/>}></Route>
         <Route path='/payment/:id/:id2/:priceid' element={<Payment/>}></Route>
         </Route>
-        <Route path='/login/:id/:id2/:priceid' element={<Login/>}></Route>
-        <Route path='/:id/:id2/:priceid' element={<SignUpPage/>}></Route>
+        <Route path='/login/:priceid' element={<Login/>}></Route>
+        <Route path='/:priceid' element={<SignUpPage/>}></Route>
         <Route path='/' element={<SignUpPage/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path= '/tracking/:id/:id2/:refno' element={<Tracking/>}></Route>

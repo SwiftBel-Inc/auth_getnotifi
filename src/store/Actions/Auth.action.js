@@ -85,6 +85,16 @@ export const getpaymentIntent=(value) => async (dispatch) => {
     }
     return res;
   }
+  export const getUserData = () => async (dispatch) => {
+    const res = await NetworkOps.get(`${ServiceEnum.userdata}`)
+    if (res.status === true) {
+      dispatch({
+        type: 'USERDATA',
+        payload: res.data
+      })
+    }
+    return res;
+  }
   export const getQuotedata=(value)=>async (dispatch)=>{
     const res=await NetworkOps.get(`${ServiceEnum.quotedata}?referenceNo=${value}`)
         if(res.status===true){

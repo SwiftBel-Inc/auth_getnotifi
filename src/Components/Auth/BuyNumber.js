@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
-import { displaynumber,buynumber } from '../../store/Actions/Auth.action';
+import { displaynumber,buynumber, getpaymentIntent } from '../../store/Actions/Auth.action';
 import { InputLabel, MenuItem, Select } from '@mui/material';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -57,8 +57,7 @@ setMobnumber(e.target.value)
 }
 let location = useLocation()
 let navigate=useNavigate()
-const { id,id2,priceid } = useParams()
-console.log(id,id2,'dif')
+const { priceid } = useParams()
 const handlesubmit2=async()=>{
     setErrormsg(null)
     let email=localStorage.getItem('email')
@@ -73,10 +72,15 @@ const handlesubmit2=async()=>{
         if(res?.status===true){
         setData(res?.data)
         localStorage.setItem('fromnumber','+'+res?.data?.twilioPhone)
-        if(location.pathname==='/'||id==='0'||id2==='free'){
+        if(location.pathname==='/'){
          navigate('/dashboard/inbox')
         }
-        else navigate(`/payment/${id}/${id2}/${priceid}`)
+        else {
+          const response = await dispatch(getpaymentIntent({
+            "priceId":priceid
+        }))
+        window.location.href=`${response.data}`
+        }
         }
      return res
     }
