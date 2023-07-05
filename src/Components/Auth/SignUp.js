@@ -255,7 +255,7 @@ border:1px solid lightgray;
 font-weight:400;
 padding-left:12px;
 @media (min-width: 260px) and (max-width: 1311px){
-    width:88%;
+    width:85%;
     }
 &::placeholder {
   font-size:15px;
