@@ -46,8 +46,8 @@ let navigate = useNavigate();
                 const response = await dispatch(getpaymentIntent({
                   "priceId":priceid
               }))
-              window.open(`${response.data}`)
-              }
+              window.location.href=`${response.data}`
+            }
             }
         if(res?.status===false){
         setErrormsg(res?.meesage)
