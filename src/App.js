@@ -6,7 +6,7 @@ import GoogleLog from './Pages/GoogleLog';
 import Quote from './Pages/Quote';
 const Payment=lazy(()=>import('./Pages/Payment'));
 const GoogleBusiness=lazy(()=>import('./Pages/GoogleBusiness'));
-const Chats=lazy(()=>import('./Pages/Chats'));
+// const Chats=lazy(()=>import('./Pages/Chats'));
 const Inbox=lazy(()=>import('./Pages/Inbox'));
 const Conatcts=lazy(()=>import('./Pages/Contacts'));
 const Reviews=lazy(()=>import('./Pages/Reviews'));
@@ -47,7 +47,7 @@ function App() {
         <Route path='/google-business' element={<GoogleBusiness/>}></Route>
         <Route path='/googlelogin' element={<GoogleLog/>}></Route>
         <Route path='/quote' element={<Quote/>}></Route>
-        <Route path='/dashboard/messenger' element={<Chats/>}></Route>
+        {/* <Route path='/dashboard/messenger' element={<Chats/>}></Route> */}
 
 
       </Routes>

@@ -17,8 +17,7 @@ const [message,setMessage]=useState(null)
 const [body,setBody]=useState(null)
 const [num,setNum]=useState(null)
 // const [details,setDetails]=useState(null)
-let fromnumber='+13656075582'
-//localStorage.getItem('fromnumber')
+let fromnumber='+13656075582' //localStorage.getItem('fromnumber')
 
 const detail = useSelector(state => state?.auth?.convo)
 //const firstnumber = detail ? detail?.[0]?.name ? detail?.[0]?.name : detail?.[0]?.to :''
@@ -50,20 +49,20 @@ console.log(userdata?.businessName,'userdata')
           socket.off('conversation');
         };
       }, []);
-     const handledate=(item)=>{
-        const dateString = item;
-        const date = new Date(dateString);
-        const hours = date.getUTCHours();
-        const minutes = date.getUTCMinutes();
-        let hours12 = hours % 12;
-        if (hours12 === 0) {
-        hours12 = 12;
-        }
-       let customminutes=minutes<10 ?'0'+minutes:minutes
-       const meridiem = hours < 12 ? "AM" : "PM";
-       const formattedTime = `${hours12}:${customminutes} ${meridiem}`;
-       return formattedTime
-     }
+    //  const handledate=(item)=>{
+    //     const dateString = item;
+    //     const date = new Date(dateString);
+    //     const hours = date.getUTCHours();
+    //     const minutes = date.getUTCMinutes();
+    //     let hours12 = hours % 12;
+    //     if (hours12 === 0) {
+    //     hours12 = 12;
+    //     }
+    //    let customminutes=minutes<10 ?'0'+minutes:minutes
+    //    const meridiem = hours < 12 ? "AM" : "PM";
+    //    const formattedTime = `${hours12}:${customminutes} ${meridiem}`;
+    //    return formattedTime
+    //  }
 
 
 
@@ -162,7 +161,7 @@ x?.type==='outbound-api'?
 <OutText>
 <OutChat>
 <Messagetext>{x?.body}</Messagetext>
-<p className='outtime'>{handledate(x.createdAt)}</p>
+{/* <p className='outtime'>{handledate(x.createdAt)}</p> */}
 </OutChat>
 <OutProfile>
 {globename?.toUpperCase().slice(0,1)}
@@ -173,7 +172,7 @@ x?.type==='outbound-api'?
 <ProfileImage src={profile} alt='profileimg' className={globecolor}/>
 <InChat>
 <Messagetext>{x?.body}</Messagetext>
-<p className='intime'>{handledate(x.createdAt)}</p>
+{/* <p className='intime'>{handledate(x.createdAt)}</p> */}
 </InChat>
 </InText>
 :''
@@ -239,20 +238,20 @@ flex-direction: column-reverse;
   height: 0;
 }
 `
-const SendMessage = styled.div`
-  position: relative;
-  width: 870px;
-  margin-bottom: 80px;
-  margin-top:15px;
-`;
+// const SendMessage = styled.div`
+//   position: relative;
+//   width: 870px;
+//   margin-bottom: 80px;
+//   margin-top:15px;
+// `;
 
-const Input = styled.input`
-  width: 95%;
-  border-radius: 30px;
-  border: 1px solid lightgray;
-  padding: 15px;
-  padding-left: 20px;
-`;
+// const Input = styled.input`
+//   width: 95%;
+//   border-radius: 30px;
+//   border: 1px solid lightgray;
+//   padding: 15px;
+//   padding-left: 20px;
+// `;
 
 const SendIcon = styled.img`
   transform: translateY(-50%);
@@ -279,21 +278,21 @@ font-weight:600;
 font-size:14px;
 padding-top:4px;
 `
-const Line1=styled.p`
-color:#d4d4d4;
-margin-left:20px;
-margin-right:10px;
-margin-top:8px;
-`
+// const Line1=styled.p`
+// color:#d4d4d4;
+// margin-left:20px;
+// margin-right:10px;
+// margin-top:8px;
+// `
 const Line2=styled.p`
 color:#d4d4d4;
 margin-left:10px;
 margin-right:13px;
 margin-top:8px;
 `
-const ReviewStar=styled.img`
-margin-top:7px;
-`
+// const ReviewStar=styled.img`
+// margin-top:7px;
+// `
 const Hr=styled.hr`
 border:1px solid #E2E8F0;
 margin-top:-3px;
@@ -382,26 +381,26 @@ const ButtonContainer = styled.div`
   display: flex;
 `
 
-const Button1 = styled.button`
-color:rgb(70, 110, 255);
-border:1px solid white;
-background:white;
-margin-right:10px;
-border-radius:6px;
-width:100px;
-font-weight:600;
-cursor:pointer;
-`
-const Button2 = styled.button`
-color:white;
-background:rgb(70, 110, 255);
-font-weight:600;
-border:1px solid white;
-border-radius:6px;
-padding:6px;
-width:60px;
-cursor:pointer;
-`
+// const Button1 = styled.button`
+// color:rgb(70, 110, 255);
+// border:1px solid white;
+// background:white;
+// margin-right:10px;
+// border-radius:6px;
+// width:100px;
+// font-weight:600;
+// cursor:pointer;
+// `
+// const Button2 = styled.button`
+// color:white;
+// background:rgb(70, 110, 255);
+// font-weight:600;
+// border:1px solid white;
+// border-radius:6px;
+// padding:6px;
+// width:60px;
+// cursor:pointer;
+// `
 const OutText=styled.div`
 display:flex;
 justify-content:flex-end;
@@ -417,10 +416,12 @@ padding-bottom:3px;
 padding-top:0px;
 text-align:end;
 width:250px;
+word-wrap: break-word;
 margin-right:50px;
 .outtime{
 font-size:12px;
 padding:0px;
+margin-top:-8px;
 }
 `
 const Messagetext=styled.p`
@@ -437,9 +438,9 @@ margin-left:50px;
 width:250px;
 .intime{
 color:rgb(70, 110, 255);
-;
 font-size:12px;
 padding:0px;
+margin-top:-8px;
 }
 `
 const OutProfile=styled.div`

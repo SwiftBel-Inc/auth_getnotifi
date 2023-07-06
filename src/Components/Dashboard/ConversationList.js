@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllconversations, getname, getnumber } from '../../store/Actions/Auth.action';
-import arrow from '../.././assets/arrow.png'
+// import arrow from '../.././assets/arrow.png'
 function ConversationList(){
     const [value, setValue] = React.useState('OPEN');
     const [val, setVal] = React.useState(0);
@@ -12,7 +12,7 @@ function ConversationList(){
     console.log(detail,'conversations')
     let fromnumber=localStorage.getItem('fromnumber')
     useEffect(() => {
-        dispatch(getAllconversations('+13656075582'));
+        dispatch(getAllconversations('+13656075582'));//from number declared above
         dispatch(getname(detail?.[0]?.name ?detail?.[0]?.name:detail?.[0]?.to))
 
       },[fromnumber,detail?.[0]?.name,detail?.[0]?.to]);
@@ -193,12 +193,12 @@ margin-bottom:15px;
 // width:15px;
 // padding:1px;
 // `
-const Icons=styled.img`
-height:20px;
-width:18px;
-padding-right:6px;
-margin-bottom:-5px;
-`
+// const Icons=styled.img`
+// height:20px;
+// width:18px;
+// padding-right:6px;
+// margin-bottom:-5px;
+// `
 const Name=styled.p`
 font-size: 16px;
 line-height: 21px;
@@ -257,12 +257,12 @@ text-align:start;
 // border-radius:4px;
 // margin-top:-6px;
 // `
-const Boxes=styled.div`
-border-radius:5px;
-width:60px;
-font-size:10px;
-.boxtext{
-padding-top:3px;
-padding-bottom:3px;
-}
-`
+// const Boxes=styled.div`
+// border-radius:5px;
+// width:60px;
+// font-size:10px;
+// .boxtext{
+// padding-top:3px;
+// padding-bottom:3px;
+// }
+// `
