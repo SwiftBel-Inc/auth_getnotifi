@@ -89,11 +89,11 @@ const onChangeName=(name)=>(event)=>{
             setIsnamevalid({...isnamevalid,firstName:true})
         }
     }
-    if(name==='businessName'){
-        if(event?.target?.value?.length>0){
-            setIsnamevalid({...isnamevalid,businessName:true})
-        }
-    }
+    // if(name==='businessName'){
+    //     if(event?.target?.value?.length>0){
+    //         setIsnamevalid({...isnamevalid,businessName:true})
+    //     }
+    // }
     // if(name==='lastName'){
     //     if(event.target.value.length>0){
     //         setIsnamevalid({...isnamevalid,lastName:true})
@@ -103,12 +103,12 @@ const onChangeName=(name)=>(event)=>{
     }
     const parsedNumber = phoneNumber?.length>0? parsePhoneNumberFromString(phoneNumber):null
     const isValidNumber = parsedNumber ? parsedNumber?.isValid() : false;
-    const onPlaceSelected = (place,x,y) => {
+    const onPlaceSelected = (place,x,) => {
         const funaddress = place.formatted_address
         const placeid=place.place_id
-        const separation=y?.gm_accessors_?.place?.Wj?.formattedPrediction?.split(',')
+        const separation=x?.value?.split(',')
         const businessName=separation?.[0]
-        console.log(businessName,'place')
+        console.log(x.value,'place')
         setValues({...values,address:funaddress,placeId:placeid,businessName:businessName})
     }
     console.log(values,'vals')
