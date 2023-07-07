@@ -3,7 +3,8 @@ import styled from "styled-components";
 import convo from '../../assets/convo.png';
 import addteam from '../../assets/addteam.png';
 import unassigned from '../../assets/unassigned.png';
-import assigned from '../../assets/assigned.png';
+//import assigned from '../../assets/assigned.png';
+import question from '../../assets/question.png'
 import settings from '../../assets/settings.png'
 function LeftMenu(){
 const [active,setActive]=useState('All Conversations')
@@ -13,12 +14,12 @@ const elements=[
     'icon':convo
     },
     {
-    'name':'Unassigned',
+    'name':'Payout Accounts',
     'icon':unassigned
     },
     {
-    'name':'Assigned to you',
-    'icon':assigned
+    'name':'Settings',
+    'icon':settings
     },
 ]
 return (
@@ -33,7 +34,9 @@ return(
 })}
 <BottomTexts>
 <Element2><Icon src={addteam} alt='addteam'/><span>Add team members</span></Element2>
-<Element2><Icon src={settings} alt='settings'/><span>Inbox settings</span></Element2>
+<Element2><Icon src={settings} alt='settings'/><span>Preferences</span></Element2>
+<Element2><Icon src={question} alt='settings'/><span>Help</span></Element2>
+
 </BottomTexts>
 </Main>
 )

@@ -190,6 +190,14 @@ x?.type==='outbound-api'?
           <Button2>Post</Button2>
         </ButtonContainer>
       </InputContainer> */}
+<Elements>
+<Element>&nbsp;Create booking&nbsp;</Element>
+<Element>&nbsp;Request deposit&nbsp;</Element>
+<Element>&nbsp;Send quote&nbsp;</Element>
+<Element>&nbsp;Send location&nbsp;</Element>
+<Element>&nbsp;Ask for review&nbsp;</Element>
+<Element>&nbsp;Send contract&nbsp;</Element>
+</Elements>
 <InputContainer>
   <InputBox type="text" placeholder="Send a message" onKeyPress={handleKeyPress} value={message} onChange={(e)=>handlesend(e)}/>
   <ButtonContainer>
@@ -207,7 +215,7 @@ width:60%;
 margin-top:48px;
 padding-top:10px;
 padding-bottom:10px;
-height: 85vh;
+height: 88vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -220,6 +228,20 @@ line-height: 21px;
 color: rgb(45, 47, 49);
 font-weight: 600;
 margin-top:7px;
+`
+const Element=styled.div`
+background:#dedede;
+border-radius:8px;
+padding:7px;
+font-size:14px;
+font-weight:600;
+margin-right:20px;
+cursor:pointer;
+`
+const Elements=styled.div`
+display:flex;
+margin-left:27px;
+margin-bottom:10px;
 `
 // const Name2=styled.span`
 // font-size: 16px;
@@ -426,6 +448,7 @@ margin-top:-8px;
 `
 const Messagetext=styled.p`
 width:250px;
+font-size:14px;
 `
 const InChat=styled.div`
 background:lightgray;

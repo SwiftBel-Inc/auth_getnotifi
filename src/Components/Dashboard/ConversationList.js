@@ -77,7 +77,7 @@ return(
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 <Rating src='https://cdn2.iconfinder.com/data/icons/universal-signs-symbols/128/star-yellow-512.png' alt='rating'/>
 </Flexdiv> */}
-<ChatText className={index===val?'smokytext':''}> You : {x?.body.slice(0,70)}</ChatText>
+<ChatText className={index===val?'smokytext':''}> You : {x?.body.slice(0,70)}{x.body.length>70?'...':''}</ChatText>
 </Flexdiv>
 {/* <Boxes className='review'>
 <p className='boxtext'>REVIEWS</p>
